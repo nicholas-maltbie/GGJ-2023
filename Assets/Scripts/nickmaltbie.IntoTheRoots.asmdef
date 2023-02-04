@@ -1,7 +1,14 @@
 {
     "name": "nickmaltbie.IntoTheRoots",
     "rootNamespace": "nickmaltbie.IntoTheRoots",
-    "references": [],
+    "references": [
+        "GUID:2aa43b0c797e0d444a7e82e75d4f2082",
+        "GUID:3b8ed52f1b5c64994af4c4e0aa4b6c4b",
+        "GUID:1491147abca9d7d4bb7105af628b223e",
+        "GUID:33ba47153cb20554cb9674037eacaed0",
+        "GUID:a929a29aeb8e4324582bbc050c364874",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
