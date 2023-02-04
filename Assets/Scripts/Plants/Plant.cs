@@ -80,6 +80,29 @@ namespace nickmaltbie.IntoTheRoots.Plants
         /// </summary>
         private float elapsedSinceProduced;
 
+        /// <summary>
+        /// Get the radius of this object
+        /// </summary>
+        /// <returns></returns>
+        public float Radius()
+        {
+            if (GetComponent<Collider2D>() is Collider2D collider)
+            {
+                if (collider is CircleCollider2D circle)
+                {
+                    return circle.radius;
+                }
+                else
+                {
+                    return collider.bounds.extents.magnitude;
+                }
+            }
+            else
+            {
+                return 0.0f;
+            }
+        }
+
         public void Start()
         {
             SpriteRenderer sr = GetComponent<SpriteRenderer>();
