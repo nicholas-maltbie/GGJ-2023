@@ -16,7 +16,6 @@
 // ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using nickmaltbie.IntoTheRoots.Player;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -95,7 +94,7 @@ namespace nickmaltbie.IntoTheRoots.Plants
             }
 
             elapsedSinceProduced += Time.deltaTime;
-            
+
             while (elapsedSinceProduced > produceInterval)
             {
                 Produce();
@@ -117,6 +116,5 @@ namespace nickmaltbie.IntoTheRoots.Plants
                 resources.AddResources(produced.Item1, produced.Item2);
             }
         }
-
     }
 }
