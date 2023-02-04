@@ -19,7 +19,7 @@
 using Unity.Netcode;
 using UnityEngine;
 
-namespace nickmaltbie.IntoTheRoots
+namespace nickmaltbie.IntoTheRoots.Player
 {
     public class CameraFollow : NetworkBehaviour
     {

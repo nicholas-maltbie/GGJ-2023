@@ -611,7 +611,11 @@ PlayerSettings:
   webGLLinkerTarget: 1
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 1
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    Server: NETWORK_DICTIONARY
+    Standalone: NETWORK_DICTIONARY
+    WebGL: NETWORK_DICTIONARY
+    Windows Store Apps: NETWORK_DICTIONARY
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
