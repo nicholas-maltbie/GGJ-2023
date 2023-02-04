@@ -17,9 +17,9 @@ This is an open source project licensed under a [MIT License](LICENSE.txt).
 
 ## Development
 
-This project is developed using Unity Release [2021.3.18f1](https://unity3d.com/unity/whats-new/2021.3.18).
+This project is developed using Unity Release [2021.3.11f1](https://unity3d.com/unity/whats-new/2021.3.11).
 Install this version of Unity from Unity Hub using this link:
-[unityhub://2021.3.18f1/3129e69bc0c7](unityhub://2021.3.18f1/3129e69bc0c7).
+[unityhub://2021.3.11f1/0a5ca18544bf](unityhub://2021.3.11f1/0a5ca18544bf).
 
 ## Template Components
 
