@@ -1,8 +1,8 @@
 {
-    "name": "nickmaltbie.TemplateUnityProject.Tests.PlayMode",
-    "rootNamespace": "nickmaltbie.TemplateUnityProject.Tests.PlayMode",
+    "name": "nickmaltbie.IntoTheRoots.Tests.PlayMode",
+    "rootNamespace": "nickmaltbie.IntoTheRoots.Tests.PlayMode",
     "references": [
-        "nickmaltbie.TemplateUnityProject"
+        "nickmaltbie.IntoTheRoots"
     ],
     "optionalUnityReferences": [
         "TestAssemblies"
