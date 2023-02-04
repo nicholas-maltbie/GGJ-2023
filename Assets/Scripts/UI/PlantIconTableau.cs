@@ -19,12 +19,15 @@
 using System.Collections.Generic;
 using nickmaltbie.IntoTheRoots.Plants;
 using nickmaltbie.IntoTheRoots.Player;
+using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace nickmaltbie.IntoTheRoots.UI
 {
     public class PlantIconTableau : MonoBehaviour
     {
+        public InputActionReference changeSelected;
         public PlantDatabase plantDatabase;
         public PlantIcon plantIconPrefab;
         public int bufferPixels = 5;
@@ -48,8 +51,46 @@ namespace nickmaltbie.IntoTheRoots.UI
                 icons[index] = go.GetComponent<PlantIcon>();
                 icons[index].plant = plant;
                 icons[index].plantIndex = index;
+                icons[index].SetSelected(false);
                 index++;
             }
+
+            icons[selected].SetSelected(true);
+            changeSelected.action.Enable();
+        }
+
+        public void SetSelected(int index)
+        {
+            // update player selected plant based on selected
+            if (NetworkManager.Singleton?.SpawnManager?.GetLocalPlayerObject() is NetworkObject localPlayer &&
+                localPlayer.GetComponent<Planter>() is Planter planter)
+            {
+                planter.toPlant = icons[selected].plant;
+            }
+
+            if (index == selected)
+            {
+                return;
+            }
+
+            icons[selected].SetSelected(false);
+            selected = index;
+            icons[selected].SetSelected(true);
+        }
+
+        public void Update()
+        {
+            float value = changeSelected.action.ReadValue<float>();
+            int nextSelected = selected + Mathf.RoundToInt(value);
+
+            while (nextSelected < 0)
+            {
+                nextSelected += icons.Count;
+            }
+
+            nextSelected %= icons.Count;
+
+            SetSelected(nextSelected);
         }
     }
 }
