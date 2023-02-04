@@ -72,7 +72,7 @@ namespace nickmaltbie.IntoTheRoots.Plants
             // with the grow range of at least one of those
             // grow zones.
             float radius = plant.Radius();
-            return playerGrowZones.Any(growZone => 
+            return playerGrowZones.Any(growZone =>
             {
                 float dist = Vector2.Distance(position, growZone.transform.position);
 
