@@ -17,8 +17,8 @@
     ],
     "build": {
         "globalMetadata": {
-            "_appTitle": "Template Unity Project Documentation",
-            "_appFooter": "Template Unity Project Documentation",
+            "_appTitle": "Into The Roots Documentation",
+            "_appFooter": "Into The Roots Documentation",
             "_enableSearch": true
         },
         "content": [
@@ -73,7 +73,7 @@
             }
         ],
         "sitemap": {
-            "baseUrl": "https://nickmaltbie.com/TemplateUnityProject/docs",
+            "baseUrl": "https://nickmaltbie.com/IntoTheRoots/docs",
             "changefreq": "weekly",
             "fileOptions": {
                 "latest/api/*": {

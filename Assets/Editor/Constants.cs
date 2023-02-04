@@ -26,5 +26,5 @@ public static class Constants
     /// <summary>
     /// Folder application project is stored in.
     /// </summary>
-    public static string ProjectName = "TemplateUnityProject";
+    public static string ProjectName = "IntoTheRoots";
 }
