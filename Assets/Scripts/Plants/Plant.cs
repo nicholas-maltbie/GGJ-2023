@@ -16,6 +16,7 @@
 // ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using nickmaltbie.IntoTheRoots.Player;
 using Unity.Netcode;
 using UnityEngine;
 
