@@ -70,7 +70,9 @@ namespace nickmaltbie.IntoTheRoots.Player
         {
             bool hasResources = HasResourcesForPlant(target);
             bool allowedPlacement = PlantUtils.IsPlantPlacementAllowed(transform.position, target, OwnerClientId);
-            return hasResources && allowedPlacement;
+            bool inGrowZone = PlantUtils.IsInGrowRadius(transform.position, target, OwnerClientId);
+
+            return hasResources && allowedPlacement && inGrowZone;
         }
 
         public void Start()

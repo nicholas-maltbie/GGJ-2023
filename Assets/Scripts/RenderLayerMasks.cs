@@ -16,10 +16,16 @@
 // ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using UnityEngine;
+
 namespace nickmaltbie.IntoTheRoots
 {
     public static class RenderLayerMasks
     {
         public const uint RestrictedRootsRenderLayer = 1 << 8;
+        public const uint GrowRangeRenderLayer = 1 << 9;
+
+        public static readonly int GrowRangeSortingLayer = SortingLayer.NameToID("GrowRange");
+        public static readonly int RestrictedRangeSortingLayer = SortingLayer.NameToID("RestrictedRange");
     }
 }

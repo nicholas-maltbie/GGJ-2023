@@ -104,6 +104,11 @@ namespace nickmaltbie.IntoTheRoots.Plants
         private SpriteMask restrictedArea;
 
         /// <summary>
+        /// Area in which the player can grow plants.
+        /// </summary>
+        private SpriteMask growArea;
+
+        /// <summary>
         /// Get the radius of this object
         /// </summary>
         /// <returns></returns>
@@ -155,6 +160,27 @@ namespace nickmaltbie.IntoTheRoots.Plants
             restrictedArea.sprite = rootsMask;
             restrictedArea.transform.localScale = new Vector3(diameter, diameter, 1);
             restrictedArea.renderingLayerMask = RenderLayerMasks.RestrictedRootsRenderLayer;
+            restrictedArea.isCustomRangeActive = true;
+            restrictedArea.frontSortingLayerID = RenderLayerMasks.RestrictedRangeSortingLayer;
+            restrictedArea.backSortingLayerID = RenderLayerMasks.RestrictedRangeSortingLayer;
+            restrictedArea.backSortingOrder = -1;
+
+            if (growRange > 0)
+            {
+                growArea = new GameObject().AddComponent<SpriteMask>();
+                growArea.transform.SetParent(transform);
+                growArea.transform.localPosition = Vector3.zero;
+                float growDiameter = growRange * 2;
+
+                growArea.sprite = rootsMask;
+                growArea.transform.localScale = new Vector3(growDiameter, growDiameter, 1);
+                growArea.renderingLayerMask = RenderLayerMasks.GrowRangeRenderLayer;
+
+                growArea.isCustomRangeActive = true;
+                growArea.frontSortingLayerID = RenderLayerMasks.GrowRangeSortingLayer;
+                growArea.backSortingLayerID = RenderLayerMasks.GrowRangeSortingLayer;
+                growArea.backSortingOrder = -1;
+            }
         }
 
         public void Update()

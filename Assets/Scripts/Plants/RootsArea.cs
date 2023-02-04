@@ -42,6 +42,10 @@ namespace nickmaltbie.IntoTheRoots.Plants
                     sr.renderingLayerMask = RenderLayerMasks.RestrictedRootsRenderLayer;
                     sr.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
                     break;
+                case RootType.Grow:
+                    sr.renderingLayerMask = RenderLayerMasks.GrowRangeRenderLayer;
+                    sr.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+                    break;
             }
         }
     }
