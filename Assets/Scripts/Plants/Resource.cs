@@ -21,18 +21,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace nickmaltbie.IntoTheRoots.Plant
+namespace nickmaltbie.IntoTheRoots.Plants
 {
     public enum Resource
     {
         Sun,
-        Water
+        Water,
+        Seeds,
     }
 
     [Serializable]
-    public struct ResourceCost
+    public struct ResourceValues
     {
-        public int WaterCost;
-        public int SunCost;
+        public int Water;
+        public int Sun;
+        public int Seed;
+
+        public int GetResourceValue(Resource resource)
+        {
+            switch(resource)
+            {
+                case Resource.Sun:
+                    return Sun;
+                case Resource.Water:
+                    return Water;
+                case Resource.Seeds:
+                    return Seed;
+                default:
+                    return -1;
+            }
+        }
     }
 }

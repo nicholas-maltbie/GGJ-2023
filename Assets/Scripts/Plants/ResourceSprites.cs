@@ -18,11 +18,29 @@
 
 using UnityEngine;
 
-namespace nickmaltbie.IntoTheRoots.Plant
+namespace nickmaltbie.IntoTheRoots.Plants
 {
-    public class Plant : MonoBehaviour
+    [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/ResourceScriptableObject", order = 1)]
+    public class ResourceSprites : ScriptableObject
     {
-        [SerializeField]
-        public ResourceCost cost;
+        public Sprite errorIcon;
+        public Sprite waterIcon;
+        public Sprite sunIcon;
+        public Sprite seedIcon;
+
+        public Sprite GetIcon(Resource resource)
+        {
+            switch(resource)
+            {
+                case Resource.Sun:
+                    return sunIcon;
+                case Resource.Water:
+                    return waterIcon;
+                case Resource.Seeds:
+                    return seedIcon;
+                default:
+                    return errorIcon;
+            }
+        }
     }
 }

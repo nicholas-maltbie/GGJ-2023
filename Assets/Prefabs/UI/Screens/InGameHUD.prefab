@@ -622,6 +622,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Control Label
       objectReference: {fileID: 0}
+    - target: {fileID: 8981685885685296716, guid: eda2e119243fc0249ba437da7ecbe5d4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eda2e119243fc0249ba437da7ecbe5d4, type: 3}
 --- !u!224 &7705518120241902968 stripped
