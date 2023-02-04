@@ -76,9 +76,19 @@ namespace nickmaltbie.IntoTheRoots.Plants
         public int growRange = 0;
 
         /// <summary>
+        /// Resource Sprites for getting resource icons
+        /// </summary>
+        public ResourceSprites resourceSprites;
+
+        /// <summary>
         /// Elapsed time since this plant has produced anything.
         /// </summary>
         private float elapsedSinceProduced;
+
+        /// <summary>
+        ///  Resource Particle System
+        /// </summary>
+        private ParticleSystem resourceParticle;
 
         /// <summary>
         /// Get the radius of this object
@@ -108,6 +118,7 @@ namespace nickmaltbie.IntoTheRoots.Plants
             SpriteRenderer sr = GetComponent<SpriteRenderer>();
             Collider2D collider = GetComponent<Collider2D>();
             sr.sortingOrder = -Mathf.RoundToInt(collider.bounds.min.y * 100);
+            resourceParticle = GetComponent<ParticleSystem>();
         }
 
         public void Update()
@@ -138,6 +149,10 @@ namespace nickmaltbie.IntoTheRoots.Plants
             foreach ((Resource, int) produced in production.EnumerateResources())
             {
                 resources.AddResources(produced.Item1, produced.Item2);
+                //Produce corresponding resource particle effect
+                var ts = resourceParticle.textureSheetAnimation;
+                ts.SetSprite(0, resourceSprites.GetIcon(produced.Item1));
+                resourceParticle.Play();
             }
         }
     }
