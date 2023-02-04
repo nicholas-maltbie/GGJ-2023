@@ -29,15 +29,7 @@ namespace nickmaltbie.IntoTheRoots.Player
     {
         public PlantDatabase plantDatabase;
         public Plant toPlant;
-        public float cooldown = 1.0f;
         public InputActionReference plantAction;
-
-        private float elapsedSincePlanted = Mathf.Infinity;
-
-        public void Update()
-        {
-            elapsedSincePlanted += Time.deltaTime;
-        }
 
         public void SpendResourcesForPlant(Plant plant)
         {
@@ -74,10 +66,11 @@ namespace nickmaltbie.IntoTheRoots.Player
             return true;
         }
 
-        public bool CanPlant()
+        public bool CanPlant(Plant target)
         {
-            bool onCooldown = elapsedSincePlanted <= cooldown;
-            return !onCooldown && HasResourcesForPlant(toPlant);
+            bool hasResources = HasResourcesForPlant(target);
+            bool allowedPlacement = PlantUtils.IsPlantPlacementAllowed(transform.position, target, OwnerClientId);
+            return hasResources && allowedPlacement;
         }
 
         public void Start()
@@ -85,9 +78,8 @@ namespace nickmaltbie.IntoTheRoots.Player
             plantAction.action.Enable();
             plantAction.action.performed += (_) =>
             {
-                if (IsOwner && CanPlant())
+                if (IsOwner && CanPlant(toPlant))
                 {
-                    elapsedSincePlanted = 0.0f;
                     SpawnPlantServerRpc(plantDatabase.GetPlantIndex(toPlant));
                 }
             };
@@ -98,7 +90,7 @@ namespace nickmaltbie.IntoTheRoots.Player
         {
             Plant plant = plantDatabase.GetPlant(plantIdx);
 
-            if (!HasResourcesForPlant(plant))
+            if (!CanPlant(plant))
             {
                 return;
             }
@@ -106,7 +98,7 @@ namespace nickmaltbie.IntoTheRoots.Player
             GameObject go = Instantiate(plant.gameObject, transform.position, Quaternion.identity);
             go.GetComponent<NetworkObject>().SpawnWithOwnership(OwnerClientId);
 
-            // Decrease player resources by requested ammount
+            // Decrease player resources by requested amount
             SpendResourcesForPlant(plant);
         }
     }
