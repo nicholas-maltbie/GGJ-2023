@@ -90,6 +90,7 @@ namespace nickmaltbie.IntoTheRoots.Plants
         /// </summary>
         private ParticleSystem resourceParticle;
 
+        /// <summary>
         /// Get the radius of this object
         /// </summary>
         /// <returns></returns>
