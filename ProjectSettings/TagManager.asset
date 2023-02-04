@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: GrowRange
+    uniqueID: 2730352973
+    locked: 0
+  - name: Plant
+    uniqueID: 3457993113
+    locked: 0
+  - name: Player
+    uniqueID: 3349236069
+    locked: 0
