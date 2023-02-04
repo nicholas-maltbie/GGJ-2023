@@ -30,7 +30,7 @@ namespace nickmaltbie.IntoTheRoots.Plants
 
         public Sprite GetIcon(Resource resource)
         {
-            switch(resource)
+            switch (resource)
             {
                 case Resource.Sun:
                     return sunIcon;

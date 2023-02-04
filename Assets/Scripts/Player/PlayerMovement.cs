@@ -33,7 +33,7 @@ namespace nickmaltbie.IntoTheRoots.Player
             if (IsLocalPlayer)
             {
                 Vector2 move = moveAction.action.ReadValue<Vector2>();
-                
+
                 if (move.magnitude > 1.0f)
                 {
                     move = move.normalized;

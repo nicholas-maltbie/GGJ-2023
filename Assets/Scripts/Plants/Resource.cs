@@ -17,9 +17,6 @@
 // SOFTWARE.
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace nickmaltbie.IntoTheRoots.Plants
 {
@@ -39,7 +36,7 @@ namespace nickmaltbie.IntoTheRoots.Plants
 
         public int GetResourceValue(Resource resource)
         {
-            switch(resource)
+            switch (resource)
             {
                 case Resource.Sun:
                     return Sun;
