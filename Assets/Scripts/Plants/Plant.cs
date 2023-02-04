@@ -135,7 +135,6 @@ namespace nickmaltbie.IntoTheRoots.Plants
             foreach ((Resource, int) produced in production.EnumerateResources())
             {
                 resources.AddResources(produced.Item1, produced.Item2);
-
                 //Produce corresponding resource particle effect
                 var resourceParticle = new ParticleSystem();
                 switch(produced.Item1) {
