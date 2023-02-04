@@ -47,7 +47,7 @@ namespace nickmaltbie.IntoTheRoots.Player
             plantAction.action.Enable();
             plantAction.action.performed += (_) =>
             {
-                if (CanPlant())
+                if (IsOwner && CanPlant())
                 {
                     elapsedSincePlanted = 0.0f;
                     SpawnPlantServerRpc(plantDatabase.GetPlantIndex(toPlant));
