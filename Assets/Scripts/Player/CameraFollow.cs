@@ -28,6 +28,11 @@ namespace nickmaltbie.IntoTheRoots
         // Update is called once per frame
         public void LateUpdate()
         {
+            if (!IsOwner)
+            {
+                return;
+            }
+
             if (Attached && Camera.main != null)
             {
                 Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z);
