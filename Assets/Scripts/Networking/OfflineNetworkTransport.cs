@@ -19,7 +19,7 @@
 using System;
 using Unity.Netcode;
 
-namespace nickmaltbie.OpenKCC.netcode.Common
+namespace nickmaltbie.IntoTheRoots.Networking
 {
     public class OfflineNetworkTransport : NetworkTransport
     {

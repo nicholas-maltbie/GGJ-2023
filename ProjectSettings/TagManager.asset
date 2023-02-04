@@ -41,3 +41,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Plant
+    uniqueID: 3457993113
+    locked: 0

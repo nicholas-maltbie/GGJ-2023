@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47dd761a749374c40bfcb6fea1b096ce, type: 3}
+  m_Name: ResourceIcons
+  m_EditorClassIdentifier: 
+  errorIcon: {fileID: 21300000, guid: 625830b5fe5230d4db1dd1e215ac5e88, type: 3}
+  waterIcon: {fileID: 21300000, guid: ec916e31ea409fa449d07ebcf26a4896, type: 3}
+  sunIcon: {fileID: 21300000, guid: 8113af0291a0cdd46934bdf239483dad, type: 3}

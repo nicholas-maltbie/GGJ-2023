@@ -28,7 +28,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace nickmaltbie.OpenKCC.netcode.Common
+namespace nickmaltbie.IntoTheRoots.Networking
 {
     public class NetworkControls : MonoBehaviour
     {
