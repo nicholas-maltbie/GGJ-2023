@@ -96,6 +96,9 @@ crashlytics-build.properties
 # Ignore package settings
 /ProjectSettings/Packages
 
+# code formatting
+InitCodeMarker
+
 # Documentation
 Assets/**/obj*
 _site/
