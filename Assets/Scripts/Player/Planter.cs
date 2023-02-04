@@ -16,6 +16,7 @@
 // ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
 using nickmaltbie.IntoTheRoots.Plants;
 using Unity.Netcode;
 using UnityEngine;
@@ -23,6 +24,7 @@ using UnityEngine.InputSystem;
 
 namespace nickmaltbie.IntoTheRoots.Player
 {
+    [RequireComponent(typeof(PlayerResources))]
     public class Planter : NetworkBehaviour
     {
         public PlantDatabase plantDatabase;
@@ -37,9 +39,45 @@ namespace nickmaltbie.IntoTheRoots.Player
             elapsedSincePlanted += Time.deltaTime;
         }
 
+        public void SpendResourcesForPlant(Plant plant)
+        {
+            ResourceValues cost = plant.cost;
+            PlayerResources stored = GetComponent<PlayerResources>();
+
+            foreach (Resource resource in Enum.GetValues(typeof(Resource)))
+            {
+                stored.RemoveResources(resource, cost.GetResourceValue(resource));
+            }
+        }
+
+        public bool HasResourcesForPlant(Plant plant)
+        {
+            ResourceValues cost = plant.cost;
+            PlayerResources stored = GetComponent<PlayerResources>();
+
+            foreach (Resource resource in Enum.GetValues(typeof(Resource)))
+            {
+                int required = cost.GetResourceValue(resource);
+                int current = stored.GetResourceCount(resource);
+
+                if (required <= 0)
+                {
+                    continue;
+                }
+
+                if (required > current)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         public bool CanPlant()
         {
-            return elapsedSincePlanted >= cooldown;
+            bool onCooldown = elapsedSincePlanted <= cooldown;
+            return !onCooldown && HasResourcesForPlant(toPlant);
         }
 
         public void Start()
@@ -59,8 +97,17 @@ namespace nickmaltbie.IntoTheRoots.Player
         public void SpawnPlantServerRpc(int plantIdx)
         {
             Plant plant = plantDatabase.GetPlant(plantIdx);
+
+            if (!HasResourcesForPlant(plant))
+            {
+                return;
+            }
+
             GameObject go = Instantiate(plant.gameObject, transform.position, Quaternion.identity);
             go.GetComponent<NetworkObject>().SpawnWithOwnership(OwnerClientId);
+
+            // Decrease player resources by requested ammount
+            SpendResourcesForPlant(plant);
         }
     }
 }
