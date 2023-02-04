@@ -29,7 +29,7 @@ namespace nickmaltbie.IntoTheRoots.Plants
     }
 
     [Serializable]
-    public struct ResourceValues
+    public class ResourceValues
     {
         public int Water;
         public int Sun;
