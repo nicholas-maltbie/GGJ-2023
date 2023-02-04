@@ -36,6 +36,12 @@ namespace nickmaltbie.IntoTheRoots.Plants
             return Physics2D.GetLayerCollisionMask(mask);
         }
 
+        public static IEnumerable<Plant> GetAllPlayerPlantsOfType(ulong owner, PlantType plantType)
+        {
+            return GameObject.FindObjectsOfType<Plant>()
+                .Where(plant => plant.OwnerClientId == owner && plant.plantType == plantType);
+        }
+
         public static IEnumerable<Plant> GetPlantsInRadius(Vector2 position, float radius, ulong owner, PlantType type)
         {
             return GetPlantsInRadius(position, radius).Where(plant => plant.OwnerClientId == owner && plant.plantType == type);

@@ -27,6 +27,8 @@ namespace nickmaltbie.IntoTheRoots.UI
 {
     public class PlantIconTableau : MonoBehaviour
     {
+        public static PlantIconTableau Singleton;
+
         public InputActionReference changeSelected;
         public PlantDatabase plantDatabase;
         public PlantIcon plantIconPrefab;
@@ -34,8 +36,28 @@ namespace nickmaltbie.IntoTheRoots.UI
         private int selected = 0;
         private Dictionary<int, PlantIcon> icons = new Dictionary<int, PlantIcon>();
 
+        private PlantType previouslySelected = PlantType.None;
+
+        public Plant SelectedPlant()
+        {
+            return icons[selected].plant;
+        }
+
+        public PlantType SelectedType()
+        {
+            return SelectedPlant().plantType;
+        }
+
         public void Awake()
         {
+            if (Singleton != null)
+            {
+                Destroy(this);
+                return;
+            }
+
+            Singleton ??= this;
+
             float width = plantIconPrefab.GetComponent<RectTransform>().sizeDelta.x;
 
             // Within this object, spawn a resource counter
@@ -59,13 +81,21 @@ namespace nickmaltbie.IntoTheRoots.UI
             changeSelected.action.Enable();
         }
 
+        public void OnDestroy()
+        {
+            if (Singleton == this)
+            {
+                Singleton = null;
+            }
+        }
+
         public void SetSelected(int index)
         {
             // update player selected plant based on selected
             if (NetworkManager.Singleton?.SpawnManager?.GetLocalPlayerObject() is NetworkObject localPlayer &&
                 localPlayer.GetComponent<Planter>() is Planter planter)
             {
-                planter.toPlant = icons[selected].plant;
+                planter.toPlant = SelectedPlant();
             }
 
             if (index == selected)
@@ -76,6 +106,23 @@ namespace nickmaltbie.IntoTheRoots.UI
             icons[selected].SetSelected(false);
             selected = index;
             icons[selected].SetSelected(true);
+
+            if (previouslySelected != SelectedType())
+            {
+                ulong localId = NetworkManager.Singleton.LocalClientId;
+
+                foreach (Plant plant in PlantUtils.GetAllPlayerPlantsOfType(localId, previouslySelected))
+                {
+                    plant.SetRestrictedAreaVisible(false);
+                }
+
+                foreach (Plant plant in PlantUtils.GetAllPlayerPlantsOfType(localId, SelectedType()))
+                {
+                    plant.SetRestrictedAreaVisible(true);
+                }
+            }
+
+            previouslySelected = SelectedType();
         }
 
         public void Update()

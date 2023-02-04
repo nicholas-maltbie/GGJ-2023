@@ -44,6 +44,9 @@ TagManager:
   - name: GrowRange
     uniqueID: 2730352973
     locked: 0
+  - name: RestrictedRange
+    uniqueID: 463737433
+    locked: 0
   - name: Plant
     uniqueID: 3457993113
     locked: 0

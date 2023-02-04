@@ -17,6 +17,7 @@
 // SOFTWARE.
 
 using nickmaltbie.IntoTheRoots.Player;
+using nickmaltbie.IntoTheRoots.UI;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -24,6 +25,7 @@ namespace nickmaltbie.IntoTheRoots.Plants
 {
     public enum PlantType
     {
+        None,
         Producer,
         Tree,
         Vegetable,
@@ -33,6 +35,12 @@ namespace nickmaltbie.IntoTheRoots.Plants
     [RequireComponent(typeof(Collider2D))]
     public class Plant : NetworkBehaviour
     {
+        /// <summary>
+        /// Circle mask for roots layer.
+        /// </summary>
+        [SerializeField]
+        public Sprite rootsMask;
+
         /// <summary>
         /// Name of this type of plant.
         /// </summary>
@@ -91,6 +99,11 @@ namespace nickmaltbie.IntoTheRoots.Plants
         private ParticleSystem resourceParticle;
 
         /// <summary>
+        /// Restricted area for drawing roots.
+        /// </summary>
+        private SpriteMask restrictedArea;
+
+        /// <summary>
         /// Get the radius of this object
         /// </summary>
         /// <returns></returns>
@@ -113,12 +126,35 @@ namespace nickmaltbie.IntoTheRoots.Plants
             }
         }
 
+        public void SetRestrictedAreaVisible(bool visible)
+        {
+            restrictedArea.enabled = visible;
+        }
+
         public void Start()
         {
             SpriteRenderer sr = GetComponent<SpriteRenderer>();
             Collider2D collider = GetComponent<Collider2D>();
             sr.sortingOrder = -Mathf.RoundToInt(collider.bounds.min.y * 100);
             resourceParticle = GetComponent<ParticleSystem>();
+
+            if (IsOwner)
+            {
+                VisualizeRange();
+                SetRestrictedAreaVisible(PlantIconTableau.Singleton.SelectedType() == plantType);
+            }
+        }
+
+        public void VisualizeRange()
+        {
+            restrictedArea = new GameObject().AddComponent<SpriteMask>();
+            restrictedArea.transform.SetParent(transform);
+            restrictedArea.transform.localPosition = Vector3.zero;
+
+            float diameter = restrictedDistance * 2;
+            restrictedArea.sprite = rootsMask;
+            restrictedArea.transform.localScale = new Vector3(diameter, diameter, 1);
+            restrictedArea.renderingLayerMask = RenderLayerMasks.RootsRenderLayer;
         }
 
         public void Update()
