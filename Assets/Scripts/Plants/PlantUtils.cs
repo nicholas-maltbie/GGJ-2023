@@ -19,9 +19,9 @@ namespace nickmaltbie.IntoTheRoots.Plants
             return Physics2D.GetLayerCollisionMask(mask);
         }
 
-        public static IEnumerable<Plant> GetPlantsInRadius(Vector2 position, float radius, PlantType type)
+        public static IEnumerable<Plant> GetPlantsInRadius(Vector2 position, float radius, ulong owner, PlantType type)
         {
-            return GetPlantsInRadius(position, radius, type).Where(plant => plant.plantType == type);
+            return GetPlantsInRadius(position, radius).Where(plant => plant.OwnerClientId == owner && plant.plantType == type);
         }
 
         public static IEnumerable<Plant> GetPlantsInRadius(Vector2 position, float radius)
@@ -31,7 +31,7 @@ namespace nickmaltbie.IntoTheRoots.Plants
                 .Where(plant => plant != null);
         }
 
-        public static bool IsPlantPlacementAllowed(Vector2 position, Plant plant)
+        public static bool IsPlantPlacementAllowed(Vector2 position, Plant plant, ulong owner)
         {
             float radius = plant.Radius();
             float restrictedRadius = plant.restrictedDistance;
@@ -39,7 +39,7 @@ namespace nickmaltbie.IntoTheRoots.Plants
 
             // Don't allow placement within restricted range of
             // plants of the same type.
-            IEnumerable<Plant> restrictedOverlapping = GetPlantsInRadius(position, restrictedRadius, restrictedType);
+            IEnumerable<Plant> restrictedOverlapping = GetPlantsInRadius(position, restrictedRadius, owner, restrictedType);
             if (restrictedOverlapping.Any())
             {
                 return false;
