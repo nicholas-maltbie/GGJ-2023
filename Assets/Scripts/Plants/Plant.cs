@@ -1,8 +1,8 @@
-using System.Resources;
-using System.Runtime.Versioning;
-using System.Reflection;
 using System.Diagnostics;
 using System.Net.Http.Headers;
+using System.Reflection;
+using System.Resources;
+using System.Runtime.Versioning;
 // Copyright (C) 2023 Nicholas Maltbie
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
@@ -137,7 +137,8 @@ namespace nickmaltbie.IntoTheRoots.Plants
                 resources.AddResources(produced.Item1, produced.Item2);
                 //Produce corresponding resource particle effect
                 var resourceParticle = new ParticleSystem();
-                switch(produced.Item1) {
+                switch (produced.Item1)
+                {
                     case Resource.Seeds:
                         resourceParticle = seedParticle;
                         break;
