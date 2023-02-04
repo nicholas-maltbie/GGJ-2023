@@ -1,3 +1,8 @@
+using System.Resources;
+using System.Runtime.Versioning;
+using System.Reflection;
+using System.Diagnostics;
+using System.Net.Http.Headers;
 // Copyright (C) 2023 Nicholas Maltbie
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
@@ -80,6 +85,21 @@ namespace nickmaltbie.IntoTheRoots.Plants
         /// </summary>
         private float elapsedSinceProduced;
 
+        /// <summary>
+        ///  Seed Particles
+        /// </summary>
+        public ParticleSystem seedParticle;
+
+        /// <summary>
+        ///  Sun Particles
+        /// </summary>
+        public ParticleSystem sunParticle;
+
+        /// <summary>
+        ///  Water Particles
+        /// </summary>
+        public ParticleSystem waterParticle;
+
         public void Start()
         {
             SpriteRenderer sr = GetComponent<SpriteRenderer>();
@@ -115,6 +135,19 @@ namespace nickmaltbie.IntoTheRoots.Plants
             foreach ((Resource, int) produced in production.EnumerateResources())
             {
                 resources.AddResources(produced.Item1, produced.Item2);
+                var resourceParticle = new ParticleSystem();
+                switch(produced.Item1) {
+                    case Resource.Seeds:
+                        resourceParticle = seedParticle;
+                        break;
+                    case Resource.Sun:
+                        resourceParticle = sunParticle;
+                        break;
+                    case Resource.Water:
+                        resourceParticle = waterParticle;
+                        break;
+                }
+                resourceParticle.Play();
             }
         }
     }
