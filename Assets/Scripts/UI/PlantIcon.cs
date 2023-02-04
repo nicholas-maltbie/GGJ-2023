@@ -17,50 +17,32 @@
 // SOFTWARE.
 
 using nickmaltbie.IntoTheRoots.Plants;
-using Unity.Netcode;
+using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
-namespace nickmaltbie.IntoTheRoots.Player
+namespace nickmaltbie.IntoTheRoots.UI
 {
-    public class Planter : NetworkBehaviour
+    public class PlantIcon : MonoBehaviour
     {
-        public PlantDatabase plantDatabase;
-        public Plant toPlant;
-        public float cooldown = 1.0f;
-        public InputActionReference plantAction;
+        public Image icon;
+        public Image border;
+        public TMP_Text plantName;
+        public TMP_Text plantNumber;
 
-        private float elapsedSincePlanted = Mathf.Infinity;
+        public int plantIndex;
+        public Plant plant;
 
-        public void Update()
+        public void SetSelected(bool value)
         {
-            elapsedSincePlanted += Time.deltaTime;
-        }
-
-        public bool CanPlant()
-        {
-            return elapsedSincePlanted >= cooldown;
+            border.enabled = value;
         }
 
         public void Start()
         {
-            plantAction.action.Enable();
-            plantAction.action.performed += (_) =>
-            {
-                if (IsOwner && CanPlant())
-                {
-                    elapsedSincePlanted = 0.0f;
-                    SpawnPlantServerRpc(plantDatabase.GetPlantIndex(toPlant));
-                }
-            };
-        }
-
-        [ServerRpc(RequireOwnership = true)]
-        public void SpawnPlantServerRpc(int plantIdx)
-        {
-            Plant plant = plantDatabase.GetPlant(plantIdx);
-            GameObject go = Instantiate(plant.gameObject, transform.position, Quaternion.identity);
-            go.GetComponent<NetworkObject>().SpawnWithOwnership(OwnerClientId);
+            plantName.text = plant.name;
+            plantNumber.text = plantIndex.ToString();
+            icon.sprite = plant.GetComponent<SpriteRenderer>().sprite;
         }
     }
 }
