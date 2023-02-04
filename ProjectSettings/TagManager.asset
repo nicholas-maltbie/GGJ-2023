@@ -47,6 +47,9 @@ TagManager:
   - name: Plant
     uniqueID: 3457993113
     locked: 0
+  - name: Particle
+    uniqueID: 2563987367
+    locked: 0
   - name: Player
     uniqueID: 3349236069
     locked: 0

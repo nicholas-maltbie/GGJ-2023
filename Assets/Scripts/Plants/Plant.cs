@@ -1,8 +1,11 @@
+using System;
 using System.Diagnostics;
 using System.Net.Http.Headers;
+using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Resources;
 using System.Runtime.Versioning;
+using System.Threading.Tasks;
 // Copyright (C) 2023 Nicholas Maltbie
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
@@ -81,30 +84,26 @@ namespace nickmaltbie.IntoTheRoots.Plants
         public int growRange = 0;
 
         /// <summary>
+        /// Resource Sprites for getting resource icons
+        /// </summary>
+        public ResourceSprites resourceSprites;
+
+        /// <summary>
         /// Elapsed time since this plant has produced anything.
         /// </summary>
         private float elapsedSinceProduced;
 
         /// <summary>
-        ///  Seed Particle System
+        ///  Resource Particle System
         /// </summary>
-        public ParticleSystem seedParticle;
-
-        /// <summary>
-        ///  Sun Particle System
-        /// </summary>
-        public ParticleSystem sunParticle;
-
-        /// <summary>
-        ///  Water Particle System
-        /// </summary>
-        public ParticleSystem waterParticle;
+        private ParticleSystem resourceParticle;
 
         public void Start()
         {
             SpriteRenderer sr = GetComponent<SpriteRenderer>();
             Collider2D collider = GetComponent<Collider2D>();
             sr.sortingOrder = -Mathf.RoundToInt(collider.bounds.min.y * 100);
+            resourceParticle = GetComponent<ParticleSystem>();
         }
 
         public void Update()
@@ -136,19 +135,8 @@ namespace nickmaltbie.IntoTheRoots.Plants
             {
                 resources.AddResources(produced.Item1, produced.Item2);
                 //Produce corresponding resource particle effect
-                var resourceParticle = new ParticleSystem();
-                switch (produced.Item1)
-                {
-                    case Resource.Seeds:
-                        resourceParticle = seedParticle;
-                        break;
-                    case Resource.Sun:
-                        resourceParticle = sunParticle;
-                        break;
-                    case Resource.Water:
-                        resourceParticle = waterParticle;
-                        break;
-                }
+                var ts = resourceParticle.textureSheetAnimation;
+                ts.SetSprite(0, resourceSprites.GetIcon(produced.Item1));
                 resourceParticle.Play();
             }
         }
