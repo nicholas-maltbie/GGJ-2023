@@ -71,20 +71,3 @@ jobs:
         id: ParseCoverage
         run: |
           echo ::set-output name=LINE_COVERAGE::$(cut -d "=" -f2- <<< ${{ steps.LineCoverage.outputs.result }})
-      
-      # Add comment if part of a PR
-      - name: Add PR Comment
-        uses: mshick/add-pr-comment@v1
-        if: ${{ github.event_name == 'pull_request' }}
-        with:
-          message: |
-            Test Coverage Results for ${{ matrix.testMode }}:
-            Line Coverage: ${{ steps.ParseCoverage.outputs.LINE_COVERAGE }}%
-            Link to run results: [https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
-          allow-repeats: false # This is the default
-
-      # - name: Assert Coverage
-      #   run: |
-      #     python3 -c "assert ${{ steps.ParseCoverage.outputs.LINE_COVERAGE }} >= 100, 'Line Coverage must be 100%, is only ${{ env.LINE_COVERAGE }}%'"
