@@ -19,14 +19,13 @@
 using System.Collections.Generic;
 using nickmaltbie.IntoTheRoots.Plants;
 using nickmaltbie.IntoTheRoots.Player;
-using Unity.Netcode;
 using UnityEngine;
 
 namespace nickmaltbie.IntoTheRoots.UI
 {
     public class ResourceCounterManager : MonoBehaviour
     {
-        public Resource[] trackedResources = new Resource[]{Resource.Sun, Resource.Water, Resource.Seeds};
+        public Resource[] trackedResources = new Resource[] { Resource.Sun, Resource.Water, Resource.Seeds };
 
         public ResourceCounter resourceCounterPrefab;
         public int bufferPixels = 5;
