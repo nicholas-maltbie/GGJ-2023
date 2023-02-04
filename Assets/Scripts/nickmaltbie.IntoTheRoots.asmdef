@@ -2,6 +2,7 @@
     "name": "nickmaltbie.IntoTheRoots",
     "rootNamespace": "nickmaltbie.IntoTheRoots",
     "references": [
+        "GUID:088b28bd4e32e6f4b812ed0814121a32",
         "GUID:2aa43b0c797e0d444a7e82e75d4f2082",
         "GUID:3b8ed52f1b5c64994af4c4e0aa4b6c4b",
         "GUID:1491147abca9d7d4bb7105af628b223e",

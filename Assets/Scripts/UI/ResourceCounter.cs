@@ -16,49 +16,45 @@
 // ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System;
-using System.Collections.Generic;
+using nickmaltbie.IntoTheRoots.Plants;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
-namespace nickmaltbie.IntoTheRoots.Plants
+namespace nickmaltbie.IntoTheRoots.UI
 {
-    public enum Resource
+    public class ResourceCounter : MonoBehaviour
     {
-        Sun,
-        Water,
-        Seeds,
-    }
+        public ResourceSprites resourceSprites;
 
-    [Serializable]
-    public struct ResourceValues
-    {
-        public int Water;
-        public int Sun;
-        public int Seed;
+        public Image icon;
+        public TMP_Text Current;
+        public TMP_Text Max;
+        public Resource resource;
 
-        public int GetResourceValue(Resource resource)
+        private int max;
+        private int current;
+
+        public void Start()
         {
-            switch (resource)
+            icon.sprite = resourceSprites.GetIcon(resource);
+        }
+
+        public void UpdateCurrent(int current)
+        {
+            if (this.current != current)
             {
-                case Resource.Sun:
-                    return Sun;
-                case Resource.Water:
-                    return Water;
-                case Resource.Seeds:
-                    return Seed;
-                default:
-                    return -1;
+                Current.text = current.ToString();
+                this.current = current;
             }
         }
 
-        public IEnumerable<(Resource, int)> EnumerateResources()
+        public void UpdateMax(int max)
         {
-            foreach (Resource resource in Enum.GetValues(typeof(Resource)))
+            if (this.max != max)
             {
-                int value = GetResourceValue(resource);
-                if (value > 0)
-                {
-                    yield return (resource, value);
-                }
+                Max.text = max.ToString();
+                this.max = max;
             }
         }
     }

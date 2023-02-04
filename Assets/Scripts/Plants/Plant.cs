@@ -16,6 +16,7 @@
 // ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using nickmaltbie.IntoTheRoots.Player;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -32,13 +33,6 @@ namespace nickmaltbie.IntoTheRoots.Plants
     [RequireComponent(typeof(Collider2D))]
     public class Plant : NetworkBehaviour
     {
-        public void Start()
-        {
-            SpriteRenderer sr = GetComponent<SpriteRenderer>();
-            Collider2D collider = GetComponent<Collider2D>();
-            sr.sortingOrder = -Mathf.RoundToInt(collider.bounds.min.y * 100);
-        }
-
         /// <summary>
         /// Name of this type of plant.
         /// </summary>
@@ -58,21 +52,70 @@ namespace nickmaltbie.IntoTheRoots.Plants
         public ResourceValues production;
 
         /// <summary>
+        /// Interval between producing resources.
+        /// </summary>
+        [SerializeField]
+        public float produceInterval = 1.0f;
+
+        /// <summary>
         /// Restricted radius for building around this plant.
         /// </summary>
         [SerializeField]
-        public int restrictedDistance;
+        public int restrictedDistance = 2;
 
         /// <summary>
         /// Victory points for this plant type.
         /// </summary>
         [SerializeField]
-        public int victoryPoints;
+        public int victoryPoints = 1;
 
         /// <summary>
         /// Grow range for improving the range of this plant.
         /// </summary>
         [SerializeField]
-        public int growRange;
+        public int growRange = 0;
+
+        /// <summary>
+        /// Elapsed time since this plant has produced anything.
+        /// </summary>
+        private float elapsedSinceProduced;
+
+        public void Start()
+        {
+            SpriteRenderer sr = GetComponent<SpriteRenderer>();
+            Collider2D collider = GetComponent<Collider2D>();
+            sr.sortingOrder = -Mathf.RoundToInt(collider.bounds.min.y * 100);
+        }
+
+        public void Update()
+        {
+            if (!IsServer)
+            {
+                return;
+            }
+
+            elapsedSinceProduced += Time.deltaTime;
+
+            while (elapsedSinceProduced > produceInterval)
+            {
+                Produce();
+                elapsedSinceProduced -= produceInterval;
+            }
+        }
+
+        public void Produce()
+        {
+            var resources = PlayerResources.GetResources(OwnerClientId);
+
+            if (resources == null)
+            {
+                return;
+            }
+
+            foreach ((Resource, int) produced in production.EnumerateResources())
+            {
+                resources.AddResources(produced.Item1, produced.Item2);
+            }
+        }
     }
 }
