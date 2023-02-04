@@ -10,7 +10,6 @@
   ],
   "dependencies": {
     "com.community.netcode.transport.websocket": "git+https://github.com/Unity-Technologies/multiplayer-community-contributions?path=/Transports/com.community.netcode.transport.websocket#f8944ffd9f52d4212c981a8460f6dd11196eda6b",
-    "com.community.netcode.extensions": "https://github.com/Unity-Technologies/multiplayer-community-contributions.git?path=/com.community.netcode.extensions#f8944ffd9f52d4212c981a8460f6dd11196eda6b",
     "com.nickmaltbie.networkstatemachineunity": "1.0.0",
     "com.nickmaltbie.recolorshaderunity": "1.0.0",
     "com.nickmaltbie.screenmanager": "3.1.0",
