@@ -186,7 +186,7 @@ namespace nickmaltbie.IntoTheRoots.Plants
             {
                 resources.AddResources(produced.Item1, produced.Item2);
                 //Produce corresponding resource particle effect
-                var ts = resourceParticle.textureSheetAnimation;
+                ParticleSystem.TextureSheetAnimationModule ts = resourceParticle.textureSheetAnimation;
                 ts.SetSprite(0, resourceSprites.GetIcon(produced.Item1));
                 resourceParticle.Play();
             }
