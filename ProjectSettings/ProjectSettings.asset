@@ -612,10 +612,10 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 1
   scriptingDefineSymbols:
-    Server: NETWORK_DICTIONARY
-    Standalone: NETWORK_DICTIONARY
-    WebGL: NETWORK_DICTIONARY
-    Windows Store Apps: NETWORK_DICTIONARY
+    Server: 
+    Standalone: 
+    WebGL: 
+    Windows Store Apps: 
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

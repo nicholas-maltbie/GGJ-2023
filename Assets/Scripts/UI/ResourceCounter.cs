@@ -15,6 +15,9 @@ namespace nickmaltbie.IntoTheRoots.UI
         public TMP_Text Max;
         public Resource resource;
 
+        private int max;
+        private int current;
+
         public void Start()
         {
             icon.sprite = resourceSprites.GetIcon(resource);
@@ -22,12 +25,20 @@ namespace nickmaltbie.IntoTheRoots.UI
 
         public void UpdateCurrent(int current)
         {
-            this.Current.text = current.ToString();
+            if (this.current != current)
+            {
+                Current.text = current.ToString();
+                this.current = current;
+            }
         }
 
         public void UpdateMax(int max)
         {
-            this.Current.text = max.ToString();
+            if (this.max != max)
+            {
+                Max.text = max.ToString();
+                this.max = max;
+            }
         }
     }
 }

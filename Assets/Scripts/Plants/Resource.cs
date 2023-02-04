@@ -17,6 +17,7 @@
 // SOFTWARE.
 
 using System;
+using System.Collections.Generic;
 
 namespace nickmaltbie.IntoTheRoots.Plants
 {
@@ -46,6 +47,18 @@ namespace nickmaltbie.IntoTheRoots.Plants
                     return Seed;
                 default:
                     return -1;
+            }
+        }
+
+        public IEnumerable<(Resource, int)> EnumerateResources()
+        {
+            foreach (Resource resource in Enum.GetValues(typeof(Resource)))
+            {
+                int value = GetResourceValue(resource);
+                if (value > 0)
+                {
+                    yield return (resource, value);
+                }
             }
         }
     }
