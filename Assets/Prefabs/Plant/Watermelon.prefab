@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -3711958823052238381}
   - component: {fileID: 8722007951678000526}
   - component: {fileID: 7955597718811500940}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Watermelon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,6 +57,7 @@ MonoBehaviour:
     Water: 10
     Sun: 0
     Seed: 0
+  produceInterval: 1
   restrictedDistance: 2
   victoryPoints: 1
   growRange: 0
@@ -127,7 +128,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.5
 --- !u!114 &8722007951678000526
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,6 +16,7 @@
 // ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace nickmaltbie.IntoTheRoots.Plants
@@ -28,6 +29,11 @@ namespace nickmaltbie.IntoTheRoots.Plants
         public int GetPlantIndex(Plant plant)
         {
             return GetPlantIndex(plant.name);
+        }
+
+        public IEnumerable<Plant> EnumeratePlants()
+        {
+            return plants;
         }
 
         public int GetPlantIndex(string plantName)
