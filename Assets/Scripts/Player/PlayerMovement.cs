@@ -1,3 +1,4 @@
+using Microsoft.Win32.SafeHandles;
 // Copyright (C) 2023 Nicholas Maltbie
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
@@ -27,6 +28,12 @@ namespace nickmaltbie.IntoTheRoots.Player
         public InputActionReference moveAction;
         public float moveSpeed = 8.0f;
 
+        private NetworkVariable<bool> isFlipped = new NetworkVariable<bool>(
+            readPerm: NetworkVariableReadPermission.Everyone,
+            writePerm: NetworkVariableWritePermission.Owner,
+            value: false
+        );
+
         // Update is called once per frame
         public void Update()
         {
@@ -45,8 +52,18 @@ namespace nickmaltbie.IntoTheRoots.Player
                 if (GetComponent<SpriteRenderer>() is SpriteRenderer sr && Mathf.Abs(delta.x) > 0.001f)
                 {
                     sr.flipX = delta.x > 0;
+                    isFlipped.Value = sr.flipX;
                 }
             }
+            else // not local player
+            {
+                GetComponent<SpriteRenderer>().flipX = GetNetworkPlayerFlippedValue().Value;
+            }
+        }
+
+        public NetworkVariable<bool> GetNetworkPlayerFlippedValue()
+        {
+            return isFlipped;
         }
     }
 }
