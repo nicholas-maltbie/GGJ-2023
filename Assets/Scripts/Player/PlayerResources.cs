@@ -23,32 +23,43 @@ namespace nickmaltbie.IntoTheRoots.Player
 {
     public class PlayerResources : NetworkBehaviour
     {
-        private NetworkVariable<int> water = new NetworkVariable<int>(
-            readPerm: NetworkVariableReadPermission.Everyone
-        );
+        public ResourceValues startingResources;
+        public ResourceValues startingMax;
 
-        private NetworkVariable<int> sun = new NetworkVariable<int>(
-            readPerm: NetworkVariableReadPermission.Everyone
-        );
+        private NetworkVariable<int> water;
+        private NetworkVariable<int> sun;
+        private NetworkVariable<int> seeds;
+        private NetworkVariable<int> maxWater;
+        private NetworkVariable<int> maxSun;
+        private NetworkVariable<int> maxSeeds;
 
-        private NetworkVariable<int> seeds = new NetworkVariable<int>(
-            readPerm: NetworkVariableReadPermission.Everyone
-        );
-
-        private NetworkVariable<int> maxWater = new NetworkVariable<int>(
-            readPerm: NetworkVariableReadPermission.Everyone,
-            value: 100
-        );
-
-        private NetworkVariable<int> maxSun = new NetworkVariable<int>(
-            readPerm: NetworkVariableReadPermission.Everyone,
-            value: 100
-        );
-
-        private NetworkVariable<int> maxSeeds = new NetworkVariable<int>(
-            readPerm: NetworkVariableReadPermission.Everyone,
-            value: 100
-        );
+        public void Awake()
+        {
+            water = new NetworkVariable<int>(
+                value: startingResources.GetResourceValue(Resource.Water),
+                readPerm: NetworkVariableReadPermission.Everyone
+            );
+            sun = new NetworkVariable<int>(
+                value: startingResources.GetResourceValue(Resource.Sun),
+                readPerm: NetworkVariableReadPermission.Everyone
+            );
+            seeds = new NetworkVariable<int>(
+                value: startingResources.GetResourceValue(Resource.Seeds),
+                readPerm: NetworkVariableReadPermission.Everyone
+            );
+            maxWater = new NetworkVariable<int>(
+                value: startingMax.GetResourceValue(Resource.Water),
+                readPerm: NetworkVariableReadPermission.Everyone
+            );
+            maxSun = new NetworkVariable<int>(
+                value: startingMax.GetResourceValue(Resource.Sun),
+                readPerm: NetworkVariableReadPermission.Everyone
+            );
+            maxSeeds = new NetworkVariable<int>(
+                value: startingMax.GetResourceValue(Resource.Seeds),
+                readPerm: NetworkVariableReadPermission.Everyone
+            );
+        }
 
         protected NetworkVariable<int> GetNetworkResourceCount(Resource resource)
         {
