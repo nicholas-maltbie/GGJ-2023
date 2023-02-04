@@ -1,9 +1,9 @@
 
 
-namespace nickmaltbie.IntoTheRoots.UI
+namespace nickmaltbie.IntoTheRoots
 {
     public static class RenderLayerMasks
     {
-        public const uint RootsRenderLayer = 1 << 8;
+        public const uint RestrictedRootsRenderLayer = 1 << 8;
     }
 }

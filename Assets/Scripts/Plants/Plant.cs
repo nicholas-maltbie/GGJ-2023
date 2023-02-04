@@ -154,7 +154,7 @@ namespace nickmaltbie.IntoTheRoots.Plants
             float diameter = restrictedDistance * 2;
             restrictedArea.sprite = rootsMask;
             restrictedArea.transform.localScale = new Vector3(diameter, diameter, 1);
-            restrictedArea.renderingLayerMask = RenderLayerMasks.RootsRenderLayer;
+            restrictedArea.renderingLayerMask = RenderLayerMasks.RestrictedRootsRenderLayer;
         }
 
         public void Update()

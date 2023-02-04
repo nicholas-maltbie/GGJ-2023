@@ -626,7 +626,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 517641001331456309, guid: 08513b75238f2f24fb22439a172e949f, type: 3}
       propertyPath: m_Name
-      value: RootsLayer
+      value: RestrictedRootsLayer
       objectReference: {fileID: 0}
     - target: {fileID: 517641001331456310, guid: 08513b75238f2f24fb22439a172e949f, type: 3}
       propertyPath: m_Pivot.x
