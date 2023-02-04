@@ -24,8 +24,27 @@ namespace nickmaltbie.IntoTheRoots.Player
 {
     public class PlayerMovement : NetworkBehaviour
     {
+        private ClientRpcParams sendToOwner;
+
         public InputActionReference moveAction;
         public float moveSpeed = 8.0f;
+
+        private NetworkVariable<bool> isFlipped = new NetworkVariable<bool>(
+            readPerm: NetworkVariableReadPermission.Everyone,
+            writePerm: NetworkVariableWritePermission.Owner,
+            value: false
+        );
+
+        public void Start()
+        {
+            sendToOwner = new ClientRpcParams
+            {
+                Send = new ClientRpcSendParams
+                {
+                    TargetClientIds = new ulong[]{OwnerClientId}
+                }
+            };
+        }
 
         // Update is called once per frame
         public void Update()
@@ -45,8 +64,29 @@ namespace nickmaltbie.IntoTheRoots.Player
                 if (GetComponent<SpriteRenderer>() is SpriteRenderer sr && Mathf.Abs(delta.x) > 0.001f)
                 {
                     sr.flipX = delta.x > 0;
+                    isFlipped.Value = sr.flipX;
                 }
             }
+            else // not local player
+            {
+                GetComponent<SpriteRenderer>().flipX = GetNetworkPlayerFlippedValue().Value;
+            }
+        }
+
+        public NetworkVariable<bool> GetNetworkPlayerFlippedValue()
+        {
+            return isFlipped;
+        }
+
+        public void TeleportPlayerViaServer(Vector3 position)
+        {
+            TeleportPlayerClientRpc(position, sendToOwner);
+        }
+
+        [ClientRpc]
+        public void TeleportPlayerClientRpc(Vector3 position, ClientRpcParams clientRpcParams = default)
+        {
+            transform.position = position;
         }
     }
 }

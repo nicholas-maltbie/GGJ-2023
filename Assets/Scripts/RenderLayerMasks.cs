@@ -16,50 +16,10 @@
 // ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System;
-using System.Collections.Generic;
-
-namespace nickmaltbie.IntoTheRoots.Plants
+namespace nickmaltbie.IntoTheRoots
 {
-    public enum Resource
+    public static class RenderLayerMasks
     {
-        Sun,
-        Water,
-        Seeds,
-    }
-
-    [Serializable]
-    public class ResourceValues
-    {
-        public int Water;
-        public int Sun;
-        public int Seed;
-
-        public int GetResourceValue(Resource resource)
-        {
-            switch (resource)
-            {
-                case Resource.Sun:
-                    return Sun;
-                case Resource.Water:
-                    return Water;
-                case Resource.Seeds:
-                    return Seed;
-                default:
-                    return -1;
-            }
-        }
-
-        public IEnumerable<(Resource, int)> EnumerateResources()
-        {
-            foreach (Resource resource in Enum.GetValues(typeof(Resource)))
-            {
-                int value = GetResourceValue(resource);
-                if (value > 0)
-                {
-                    yield return (resource, value);
-                }
-            }
-        }
+        public const uint RestrictedRootsRenderLayer = 1 << 8;
     }
 }

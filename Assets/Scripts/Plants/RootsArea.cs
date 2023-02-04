@@ -16,49 +16,32 @@
 // ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System;
-using System.Collections.Generic;
+using UnityEngine;
 
 namespace nickmaltbie.IntoTheRoots.Plants
 {
-    public enum Resource
+    public enum RootType
     {
-        Sun,
-        Water,
-        Seeds,
+        Restricted,
+        Grow,
+        Linking
     }
 
-    [Serializable]
-    public class ResourceValues
+    [RequireComponent(typeof(SpriteRenderer))]
+    public class RootsArea : MonoBehaviour
     {
-        public int Water;
-        public int Sun;
-        public int Seed;
+        public RootType rootType;
 
-        public int GetResourceValue(Resource resource)
+        public void Awake()
         {
-            switch (resource)
-            {
-                case Resource.Sun:
-                    return Sun;
-                case Resource.Water:
-                    return Water;
-                case Resource.Seeds:
-                    return Seed;
-                default:
-                    return -1;
-            }
-        }
+            SpriteRenderer sr = GetComponent<SpriteRenderer>();
 
-        public IEnumerable<(Resource, int)> EnumerateResources()
-        {
-            foreach (Resource resource in Enum.GetValues(typeof(Resource)))
+            switch (rootType)
             {
-                int value = GetResourceValue(resource);
-                if (value > 0)
-                {
-                    yield return (resource, value);
-                }
+                case RootType.Restricted:
+                    sr.renderingLayerMask = RenderLayerMasks.RestrictedRootsRenderLayer;
+                    sr.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+                    break;
             }
         }
     }

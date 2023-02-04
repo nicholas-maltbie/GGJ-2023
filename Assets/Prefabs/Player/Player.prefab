@@ -120,7 +120,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -945731227
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f717f2ef7c02d1f4aae3ef95ae33564b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -173,7 +173,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plantDatabase: {fileID: 11400000, guid: 99fb61debff13bd4fb0fb1e99e886394, type: 2}
   toPlant: {fileID: -6072568467149352374, guid: adeb1cc60bab8554991952b9f283e607, type: 3}
-  cooldown: 0
   plantAction: {fileID: -6806686660371439645, guid: cd7e51aeaf5ab844ba9a3c53086a8e80, type: 3}
 --- !u!114 &619206603626513832
 MonoBehaviour:
@@ -262,9 +261,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingResources:
-    Water: 100
-    Sun: 100
-    Seed: 100
+    Water: 0
+    Sun: 0
+    Seed: 0
   startingMax:
     Water: 100
     Sun: 100
