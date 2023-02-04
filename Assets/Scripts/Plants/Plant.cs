@@ -1,11 +1,3 @@
-using System;
-using System.Diagnostics;
-using System.Net.Http.Headers;
-using System.Net.NetworkInformation;
-using System.Reflection;
-using System.Resources;
-using System.Runtime.Versioning;
-using System.Threading.Tasks;
 // Copyright (C) 2023 Nicholas Maltbie
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
@@ -97,7 +89,7 @@ namespace nickmaltbie.IntoTheRoots.Plants
         ///  Resource Particle System
         /// </summary>
         private ParticleSystem resourceParticle;
-        
+
         /// Get the radius of this object
         /// </summary>
         /// <returns></returns>

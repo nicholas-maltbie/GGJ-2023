@@ -64,7 +64,6 @@ MonoBehaviour:
   victoryPoints: 10
   growRange: 10
   resourceSprites: {fileID: 11400000, guid: 3a663d3a5ae7c9b46993ae4abe0550f3, type: 2}
-  resourceParticle: {fileID: 3062714128635192963}
 --- !u!212 &-9076792384468146927
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -156,7 +155,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 876118334731879367}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
   m_Name: 
