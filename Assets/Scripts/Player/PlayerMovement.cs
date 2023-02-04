@@ -41,7 +41,7 @@ namespace nickmaltbie.IntoTheRoots.Player
             {
                 Send = new ClientRpcSendParams
                 {
-                    TargetClientIds = new ulong[]{OwnerClientId}
+                    TargetClientIds = new ulong[] { OwnerClientId }
                 }
             };
         }
