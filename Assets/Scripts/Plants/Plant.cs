@@ -86,17 +86,17 @@ namespace nickmaltbie.IntoTheRoots.Plants
         private float elapsedSinceProduced;
 
         /// <summary>
-        ///  Seed Particles
+        ///  Seed Particle System
         /// </summary>
         public ParticleSystem seedParticle;
 
         /// <summary>
-        ///  Sun Particles
+        ///  Sun Particle System
         /// </summary>
         public ParticleSystem sunParticle;
 
         /// <summary>
-        ///  Water Particles
+        ///  Water Particle System
         /// </summary>
         public ParticleSystem waterParticle;
 
@@ -135,6 +135,8 @@ namespace nickmaltbie.IntoTheRoots.Plants
             foreach ((Resource, int) produced in production.EnumerateResources())
             {
                 resources.AddResources(produced.Item1, produced.Item2);
+
+                //Produce corresponding resource particle effect
                 var resourceParticle = new ParticleSystem();
                 switch(produced.Item1) {
                     case Resource.Seeds:
