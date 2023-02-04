@@ -18,6 +18,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace nickmaltbie.IntoTheRoots.Plants
@@ -36,10 +37,16 @@ namespace nickmaltbie.IntoTheRoots.Plants
             return Physics2D.GetLayerCollisionMask(mask);
         }
 
+        public static IEnumerable<Plant> GetPlantsOwnedByPlayer(ulong owner)
+        {
+            return NetworkManager.Singleton.SpawnManager.GetClientOwnedObjects(owner)
+                .Select(networkObj => networkObj.GetComponent<Plant>())
+                .Where(plant => plant != null);
+        }
+
         public static IEnumerable<Plant> GetAllPlayerPlantsOfType(ulong owner, PlantType plantType)
         {
-            return GameObject.FindObjectsOfType<Plant>()
-                .Where(plant => plant.OwnerClientId == owner && plant.plantType == plantType);
+            return GetPlantsOwnedByPlayer(owner).Where(plant => plant.plantType == plantType);
         }
 
         public static IEnumerable<Plant> GetPlantsInRadius(Vector2 position, float radius, ulong owner, PlantType type)
@@ -52,6 +59,25 @@ namespace nickmaltbie.IntoTheRoots.Plants
             return Physics2D.OverlapCircleAll(position, radius, PlantLayerMask())
                 .Select(collider => collider.GetComponent<Plant>())
                 .Where(plant => plant != null);
+        }
+
+        public static bool IsInGrowRadius(Vector2 position, Plant plant, ulong owner)
+        {
+            // Get all plants with a non-zero grow range owned
+            // by this player
+            IEnumerable<Plant> playerGrowZones = GetPlantsOwnedByPlayer(owner)
+                .Where(plant => plant.growRange > 0);
+
+            // Check if this plant's radius intersects
+            // with the grow range of at least one of those
+            // grow zones.
+            float radius = plant.Radius();
+            return playerGrowZones.Any(growZone =>
+            {
+                float dist = Vector2.Distance(position, growZone.transform.position);
+
+                return dist <= growZone.growRange + radius;
+            });
         }
 
         public static bool IsPlantPlacementAllowed(Vector2 position, Plant plant, ulong owner)

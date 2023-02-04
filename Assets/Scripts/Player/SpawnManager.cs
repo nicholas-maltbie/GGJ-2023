@@ -33,16 +33,13 @@ namespace nickmaltbie.IntoTheRoots.Player
             NetworkManager.Singleton.OnClientConnectedCallback += SpawnPlayer;
             NetworkManager.Singleton.OnServerStarted += () =>
             {
-                if (IsHost)
-                {
-                    SpawnPlayer(OwnerClientId);
-                }
+                SpawnPlayer(OwnerClientId);
             };
         }
 
         public void SpawnPlayer(ulong clientId)
         {
-            if (!NetworkManager.Singleton.IsServer)
+            if (!IsServer)
             {
                 return;
             }
