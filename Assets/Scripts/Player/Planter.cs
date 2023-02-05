@@ -17,6 +17,7 @@
 // SOFTWARE.
 
 using System;
+using System.Linq;
 using nickmaltbie.IntoTheRoots.Plants;
 using Unity.Netcode;
 using UnityEngine;
@@ -98,7 +99,7 @@ namespace nickmaltbie.IntoTheRoots.Player
             }
 
             // Closest tree
-            Plant closestParent = PlantUtils.ClosestGrowZone(transform.position, OwnerClientId);
+            Plant[] connectedTrees = PlantUtils.AllAvailableGrowZones(transform.position, plant, OwnerClientId).ToArray();
 
             GameObject plantGo = Instantiate(plant.gameObject, transform.position, Quaternion.identity);
             plantGo.GetComponent<NetworkObject>().SpawnWithOwnership(OwnerClientId);
@@ -106,7 +107,10 @@ namespace nickmaltbie.IntoTheRoots.Player
             // Decrease player resources by requested amount
             SpendResourcesForPlant(plant);
 
-            PlantUtils.SpawnRootBetweenPlants(plantDatabase.rootPrefab.gameObject, closestParent, plantGo.GetComponent<Plant>(), OwnerClientId);
+            foreach (Plant connected in connectedTrees)
+            {
+                PlantUtils.SpawnRootBetweenPlants(plantDatabase.rootPrefab.gameObject, connected, plantGo.GetComponent<Plant>(), OwnerClientId);
+            }
         }
     }
 }
