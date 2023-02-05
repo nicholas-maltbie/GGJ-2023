@@ -60,7 +60,7 @@ MonoBehaviour:
     Seed: 0
   produceInterval: 1
   restrictedDistance: 2
-  victoryPoints: 10
+  victoryPoints: 6
   growRange: 0
   resourceSprites: {fileID: 11400000, guid: 3a663d3a5ae7c9b46993ae4abe0550f3, type: 2}
   plantDescription: Tomatos don't produce resources, but give victory points when
@@ -104,7 +104,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -836974183
-  m_SortingLayer: 4
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 075db61b2498dd44a9e4aa4bb2bd83b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

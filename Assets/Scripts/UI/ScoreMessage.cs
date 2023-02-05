@@ -39,6 +39,7 @@ namespace nickmaltbie.IntoTheRoots.UI
                 if (winner == (long)NetworkManager.Singleton.LocalClientId)
                 {
                     winMessage.text = $"You Won!";
+                    GlobalAudio.singleton.PlayClip("victoryClip");
                 }
                 else if (winner == -1L)
                 {
