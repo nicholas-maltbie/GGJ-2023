@@ -32,7 +32,7 @@ namespace nickmaltbie.IntoTheRoots.Plants
         {
             Vector2 dir = new Vector2(plant.transform.position.x, plant.transform.position.y) - position;
             hit = Physics2D.Raycast(position, dir.normalized, dir.magnitude, RootLayerMask | PlantLayerMask);
-            return hit.collider.gameObject == plant.gameObject;
+            return hit.collider?.gameObject == plant?.gameObject;
         }
 
         public static IEnumerable<Plant> GetPlantsOwnedByPlayer(ulong owner)
