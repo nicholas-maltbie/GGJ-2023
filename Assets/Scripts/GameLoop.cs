@@ -78,6 +78,11 @@ namespace nickmaltbie.IntoTheRoots
 
         public void Update()
         {
+            if (!IsServer)
+            {
+                return;
+            }
+
             switch (gameState.Value)
             {
                 case GameState.Score:
@@ -92,7 +97,18 @@ namespace nickmaltbie.IntoTheRoots
                     // Check if any player has reached 100 points
                     foreach (uint clientId in NetworkManager.Singleton.ConnectedClientsIds)
                     {
+                        if (NetworkManager.SpawnManager.GetPlayerNetworkObject(clientId) == null)
+                        {
+                            continue;
+                        }
+
                         var resources = PlayerResources.GetResources(clientId);
+
+                        if (resources == null)
+                        {
+                            continue;
+                        }
+
                         int vp = resources.GetVictoryPoints();
 
                         if (vp >= vpThreshold)
