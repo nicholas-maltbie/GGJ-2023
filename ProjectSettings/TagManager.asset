@@ -65,3 +65,6 @@ TagManager:
   - name: Player
     uniqueID: 3349236069
     locked: 0
+  - name: CloudShadows
+    uniqueID: 1081625275
+    locked: 0
