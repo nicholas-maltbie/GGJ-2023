@@ -22,6 +22,7 @@ using nickmaltbie.IntoTheRoots.Player;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace nickmaltbie.IntoTheRoots.UI
 {
@@ -74,6 +75,13 @@ namespace nickmaltbie.IntoTheRoots.UI
                 icons[index].plant = plant;
                 icons[index].plantIndex = index;
                 icons[index].SetSelected(false);
+
+                if (icons[index].GetComponent<Button>() is Button button)
+                {
+                    int idx = index;
+                    button.onClick.AddListener(() => SetSelected(idx));
+                }
+
                 index++;
             }
 
