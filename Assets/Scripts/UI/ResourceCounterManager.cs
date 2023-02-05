@@ -25,8 +25,7 @@ namespace nickmaltbie.IntoTheRoots.UI
 {
     public class ResourceCounterManager : MonoBehaviour
     {
-        public Resource[] trackedResources = new Resource[] { Resource.Sun, Resource.Water, Resource.Seeds };
-
+        private Resource[] trackedResources = System.Enum.GetValues(typeof(Resource)) as Resource[];
         public ResourceCounter resourceCounterPrefab;
         public int bufferPixels = 5;
 
@@ -64,8 +63,15 @@ namespace nickmaltbie.IntoTheRoots.UI
             {
                 ResourceCounter counter = counters[resource];
 
-                counter.UpdateMax(resources.GetResourceMax(resource));
-                counter.UpdateCurrent(resources.GetResourceCount(resource));
+                if( resource != Resource.VP )
+                {
+                    counter.UpdateMax(resources.GetResourceMax(resource));
+                    counter.UpdateCurrent(resources.GetResourceCount(resource));
+                }
+                else
+                {
+                    counter.UpdateCurrent(resources.GetVictoryPoints());
+                }
             }
         }
     }

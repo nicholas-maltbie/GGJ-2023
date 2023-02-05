@@ -51,7 +51,7 @@ namespace nickmaltbie.IntoTheRoots.UI
 
         public void UpdateMax(int max)
         {
-            if (this.max != max)
+            if (Max && this.max != max)
             {
                 Max.text = max.ToString();
                 this.max = max;
