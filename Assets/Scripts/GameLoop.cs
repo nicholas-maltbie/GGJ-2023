@@ -30,14 +30,16 @@ namespace nickmaltbie.IntoTheRoots
         Lobby,
         Planting,
         Score,
+        Unknown
     }
 
     public class GameLoop : NetworkBehaviour
     {
         public static GameLoop Singleton { get; private set; }
 
-        public GameState CurrentState => gameState.Value;
+        public GameState CurrentState => gameState?.Value ?? GameState.Unknown;
         public long Winner => winner.Value;
+        public NetworkList<ulong> Clients { get; private set; }
 
         public int vpThreshold = 100;
         public float scorePhaseTime = 15.0f;
@@ -61,6 +63,7 @@ namespace nickmaltbie.IntoTheRoots
         {
             NetworkManager.Singleton.AddNetworkPrefab(planterPlayerPrefab);
             NetworkManager.Singleton.AddNetworkPrefab(lobbyPlayerPrefab);
+            Clients = new NetworkList<ulong>();
 
             if (Singleton != null)
             {
@@ -71,9 +74,22 @@ namespace nickmaltbie.IntoTheRoots
             Singleton = this;
             NetworkManager.Singleton.OnServerStarted += () =>
             {
+                Clients.Clear();
                 StartLobbyState();
+                
+                if (IsHost)
+                {
+                    Clients.Add(NetworkManager.Singleton.LocalClientId);
+                }
             };
             NetworkManager.Singleton.OnClientConnectedCallback += OnPlayerJoin;
+            NetworkManager.Singleton.OnClientDisconnectCallback += id =>
+            {
+                if (IsServer)
+                {
+                    Clients.Remove(id);
+                }
+            };
         }
 
         public void Update()
@@ -127,6 +143,8 @@ namespace nickmaltbie.IntoTheRoots
             {
                 return;
             }
+
+            Clients.Add(clientId);
 
             switch (gameState.Value)
             {
