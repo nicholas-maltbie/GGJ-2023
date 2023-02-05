@@ -32,7 +32,7 @@ namespace nickmaltbie.IntoTheRoots.Plants
             {
                 NetworkManager.Singleton.AddNetworkPrefab(plant.gameObject);
             }
-            
+
             NetworkManager.Singleton.AddNetworkPrefab(plantDatabase.rootPrefab.gameObject);
         }
     }
