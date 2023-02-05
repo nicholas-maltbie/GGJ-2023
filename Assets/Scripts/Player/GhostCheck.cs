@@ -29,6 +29,7 @@ namespace nickmaltbie.IntoTheRoots.Player
         public const int MaxDegreeGhost = 25;
 
         public Color validColor = Color.green;
+        public Color brokeColor = new Color(1.0f, 1.0f, 0.0f, 0.2f);
         public Color invalidColor = new Color(0.1f, 0.1f, 0.1f, 0.2f);
         public Color overlapColor = new Color(1.0f, 0.0f, 0.0f, 0.2f);
         public Color plantColor = new Color(0.1f, 0.1f, 0.1f, 0.1f);
@@ -175,6 +176,11 @@ namespace nickmaltbie.IntoTheRoots.Player
             if (growZonesInRange.Length > 0 && allOverlap)
             {
                 ghostSprite.color = overlapColor;
+            }
+
+            if (ghostSprite.color == validColor && !planter.HasResourcesForPlant(Plant))
+            {
+                ghostSprite.color = brokeColor;
             }
         }
     }
