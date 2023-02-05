@@ -17,10 +17,12 @@
 // SOFTWARE.
 
 using System;
+using System.Linq;
 using nickmaltbie.IntoTheRoots.Plants;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.InputSystem.InputAction;
 
 namespace nickmaltbie.IntoTheRoots.Player
 {
@@ -66,23 +68,61 @@ namespace nickmaltbie.IntoTheRoots.Player
             return true;
         }
 
+        public void Update()
+        {
+            UpdatePlantDisplay();
+        }
+
+        public void UpdatePlantDisplay()
+        {
+            ResourceValues cost = toPlant.cost;
+            PlayerResources stored = GetComponent<PlayerResources>();
+
+            foreach (Resource resource in Enum.GetValues(typeof(Resource)))
+            {
+                int required = cost.GetResourceValue(resource);
+                int current = stored.GetResourceCount(resource);
+
+                if (required > current)
+                {
+                    // cannot plant
+                    PlantDetailsDisplay.Singleton.SetResourceHighlight(resource, true);
+                }
+                else
+                {
+                    // can plant
+                    PlantDetailsDisplay.Singleton.SetResourceHighlight(resource, false);
+                }
+            }
+        }
+
         public bool CanPlant(Plant target)
         {
             bool hasResources = HasResourcesForPlant(target);
             bool allowedPlacement = PlantUtils.IsPlantPlacementAllowed(transform.position, target, OwnerClientId);
-            return hasResources && allowedPlacement;
+            bool inGrowZone = PlantUtils.IsInGrowRadius(transform.position, target, OwnerClientId);
+
+            return hasResources && allowedPlacement && inGrowZone;
         }
 
         public void Start()
         {
             plantAction.action.Enable();
-            plantAction.action.performed += (_) =>
+            plantAction.action.performed += OnPlant;
+        }
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            plantAction.action.performed -= OnPlant;
+        }
+
+        public void OnPlant(CallbackContext context)
+        {
+            if (IsOwner && CanPlant(toPlant))
             {
-                if (IsOwner && CanPlant(toPlant))
-                {
-                    SpawnPlantServerRpc(plantDatabase.GetPlantIndex(toPlant));
-                }
-            };
+                SpawnPlantServerRpc(plantDatabase.GetPlantIndex(toPlant));
+            }
         }
 
         [ServerRpc(RequireOwnership = true)]
@@ -95,11 +135,23 @@ namespace nickmaltbie.IntoTheRoots.Player
                 return;
             }
 
-            GameObject go = Instantiate(plant.gameObject, transform.position, Quaternion.identity);
-            go.GetComponent<NetworkObject>().SpawnWithOwnership(OwnerClientId);
+            // Closest tree
+            Plant[] connectedTrees = PlantUtils.AllAvailableGrowZones(transform.position, plant, OwnerClientId).ToArray();
+
+            GameObject plantGo = Instantiate(plant.gameObject, transform.position, Quaternion.identity);
+            plantGo.GetComponent<NetworkObject>().SpawnWithOwnership(OwnerClientId);
 
             // Decrease player resources by requested amount
             SpendResourcesForPlant(plant);
+
+            // If vegetable, multiply points by # of connections.
+            int points = plant.plantType == PlantType.Vegetable ? plant.victoryPoints * connectedTrees.Length : plant.victoryPoints;
+            PlayerResources.AddVictoryPoints(OwnerClientId, points);
+
+            foreach (Plant connected in connectedTrees)
+            {
+                PlantUtils.SpawnRootBetweenPlants(plantDatabase.rootPrefab.gameObject, connected, plantGo.GetComponent<Plant>(), OwnerClientId);
+            }
         }
     }
 }

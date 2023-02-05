@@ -50,13 +50,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61b05e8511b8c6043b8e7c246d38ab35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rootsMask: {fileID: 21300000, guid: 5acf4ea37e744b84a8921bb3d4893791, type: 3}
   plantType: 0
   cost:
     Water: 0
     Sun: 10
     Seed: 1
   production:
-    Water: 10
+    Water: 1
     Sun: 0
     Seed: 0
   produceInterval: 1
@@ -64,7 +65,7 @@ MonoBehaviour:
   victoryPoints: 1
   growRange: 0
   resourceSprites: {fileID: 11400000, guid: 3a663d3a5ae7c9b46993ae4abe0550f3, type: 2}
-  resourceParticle: {fileID: 8304318666035985650}
+  plantDescription: Watermelons provide the Water resource, require space to be grown.
 --- !u!212 &-9076792384468146927
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -104,7 +105,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -836974183
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f7210d9826fc6d4459a477496696443f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -427,7 +428,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.25
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4980,7 +4981,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1730979929
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -4437221103852487564}
   - component: {fileID: 619206603626513832}
   - component: {fileID: 1499779608483924149}
+  - component: {fileID: 1726706666007763127}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -120,7 +121,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -945731227
-  m_SortingLayer: 3
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f717f2ef7c02d1f4aae3ef95ae33564b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -173,7 +174,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plantDatabase: {fileID: 11400000, guid: 99fb61debff13bd4fb0fb1e99e886394, type: 2}
   toPlant: {fileID: -6072568467149352374, guid: adeb1cc60bab8554991952b9f283e607, type: 3}
-  cooldown: 0
   plantAction: {fileID: -6806686660371439645, guid: cd7e51aeaf5ab844ba9a3c53086a8e80, type: 3}
 --- !u!114 &619206603626513832
 MonoBehaviour:
@@ -262,10 +262,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingResources:
-    Water: 100
-    Sun: 100
-    Seed: 100
+    Water: 0
+    Sun: 0
+    Seed: 0
   startingMax:
     Water: 100
     Sun: 100
     Seed: 100
+--- !u!114 &1726706666007763127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3743162162709521265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5be81563f58d334dadb5e81bcb2dedf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  validColor: {r: 0.052954797, g: 0.6603774, b: 0.052954797, a: 0.34901962}
+  invalidColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.34901962}
+  overlapColor: {r: 0.6792453, g: 0.048059803, b: 0.048059803, a: 0.34901962}
+  plantColor: {r: 0, g: 0, b: 0, a: 0.4509804}
+  circleImage: {fileID: 21300000, guid: 5acf4ea37e744b84a8921bb3d4893791, type: 3}
+  rootSprite: {fileID: 21300000, guid: d7c5bef3195f35148a134019096f2b78, type: 3}

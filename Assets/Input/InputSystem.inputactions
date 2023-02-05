@@ -576,6 +576,17 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "ea3c008f-04fc-4b68-a1f1-950cc7ddf8b9",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Plant",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "Mouse Wheel",
                     "id": "32e1f8f3-57bd-4356-9140-372c0aeb74fb",
                     "path": "1DAxis",
@@ -587,7 +598,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "positive",
+                    "name": "negative",
                     "id": "3f90d6e8-26bd-46b3-b6a0-e6c9a37981ae",
                     "path": "<Mouse>/scroll/up",
                     "interactions": "",
@@ -598,7 +609,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "negative",
+                    "name": "positive",
                     "id": "48b8680c-19fe-43f7-ad1f-660ee8a73615",
                     "path": "<Mouse>/scroll/down",
                     "interactions": "",
@@ -640,8 +651,45 @@
                     "action": "ChangePlantKey",
                     "isComposite": false,
                     "isPartOfComposite": false
+                    "name": "Bumpers",
+                    "id": "c80a46d8-5ef5-456c-9a6e-03a6f10afdb3",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangePlant",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "f04bbb83-9887-477d-a3da-b3206f411925",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangePlant",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "c6be1821-4f77-4e8f-b402-4a21984b7946",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangePlant",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "UI",
+            "id": "f8843c83-7456-418c-a8ba-69b492a6dd57",
+            "actions": [],
+            "bindings": []
         }
     ],
     "controlSchemes": []

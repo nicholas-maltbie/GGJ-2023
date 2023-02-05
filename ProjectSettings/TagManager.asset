@@ -12,8 +12,8 @@ TagManager:
   - Water
   - UI
   - Plant
-  - 
-  - 
+  - Root
+  - Wall
   - 
   - 
   - 
@@ -43,6 +43,18 @@ TagManager:
     locked: 0
   - name: GrowRange
     uniqueID: 2730352973
+    locked: 0
+  - name: RestrictedRange
+    uniqueID: 463737433
+    locked: 0
+  - name: Root Ghost
+    uniqueID: 1994516335
+    locked: 0
+  - name: Plant Ghost
+    uniqueID: 3050700957
+    locked: 0
+  - name: Root
+    uniqueID: 124772507
     locked: 0
   - name: Plant
     uniqueID: 3457993113

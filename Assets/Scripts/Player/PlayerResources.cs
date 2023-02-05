@@ -29,6 +29,7 @@ namespace nickmaltbie.IntoTheRoots.Player
         private NetworkVariable<int> water;
         private NetworkVariable<int> sun;
         private NetworkVariable<int> seeds;
+        private NetworkVariable<int> vp = new NetworkVariable<int>(value: 0, readPerm: NetworkVariableReadPermission.Everyone);
         private NetworkVariable<int> maxWater;
         private NetworkVariable<int> maxSun;
         private NetworkVariable<int> maxSeeds;
@@ -71,6 +72,8 @@ namespace nickmaltbie.IntoTheRoots.Player
                     return sun;
                 case Resource.Seeds:
                     return seeds;
+                case Resource.VP:
+                    return vp;
                 default:
                     return null;
             }
@@ -86,6 +89,8 @@ namespace nickmaltbie.IntoTheRoots.Player
                     return maxSun;
                 case Resource.Seeds:
                     return maxSeeds;
+                case Resource.VP:
+                    return vp;
                 default:
                     return null;
             }
@@ -152,6 +157,17 @@ namespace nickmaltbie.IntoTheRoots.Player
             }
 
             return null;
+        }
+
+        public static void AddVictoryPoints(ulong clientId, int points)
+        {
+            GetResources(clientId).vp.Value += points;
+        }
+
+        public int GetVictoryPoints()
+        {
+
+            return GetResources(OwnerClientId).vp.Value;
         }
     }
 }

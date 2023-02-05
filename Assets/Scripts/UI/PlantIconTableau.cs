@@ -23,6 +23,7 @@ using nickmaltbie.IntoTheRoots.Player;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace nickmaltbie.IntoTheRoots.UI
 {
@@ -30,14 +31,35 @@ namespace nickmaltbie.IntoTheRoots.UI
     {
         public InputActionReference changeSelectedScroll;
         public InputActionReference changeSelectedKey;
+        public static PlantIconTableau Singleton;
         public PlantDatabase plantDatabase;
         public PlantIcon plantIconPrefab;
         public int bufferPixels = 5;
         private int selected = 0;
         private Dictionary<int, PlantIcon> icons = new Dictionary<int, PlantIcon>();
 
+        private PlantType previouslySelected = PlantType.None;
+
+        public Plant SelectedPlant()
+        {
+            return icons[selected].plant;
+        }
+
+        public PlantType SelectedType()
+        {
+            return SelectedPlant().plantType;
+        }
+
         public void Awake()
         {
+            if (Singleton != null)
+            {
+                Destroy(this);
+                return;
+            }
+
+            Singleton ??= this;
+
             float width = plantIconPrefab.GetComponent<RectTransform>().sizeDelta.x;
 
             // Within this object, spawn a resource counter
@@ -54,6 +76,13 @@ namespace nickmaltbie.IntoTheRoots.UI
                 icons[index].plant = plant;
                 icons[index].plantIndex = index;
                 icons[index].SetSelected(false);
+
+                if (icons[index].GetComponent<Button>() is Button button)
+                {
+                    int idx = index;
+                    button.onClick.AddListener(() => SetSelected(idx));
+                }
+
                 index++;
             }
 
@@ -62,13 +91,21 @@ namespace nickmaltbie.IntoTheRoots.UI
             changeSelectedKey.action.Enable();
         }
 
+        public void OnDestroy()
+        {
+            if (Singleton == this)
+            {
+                Singleton = null;
+            }
+        }
+
         public void SetSelected(int index)
         {
             // update player selected plant based on selected
             if (NetworkManager.Singleton?.SpawnManager?.GetLocalPlayerObject() is NetworkObject localPlayer &&
                 localPlayer.GetComponent<Planter>() is Planter planter)
             {
-                planter.toPlant = icons[selected].plant;
+                planter.toPlant = SelectedPlant();
             }
 
             if (index == selected)
@@ -79,6 +116,20 @@ namespace nickmaltbie.IntoTheRoots.UI
             icons[selected].SetSelected(false);
             selected = index;
             icons[selected].SetSelected(true);
+
+            ulong localId = NetworkManager.Singleton.LocalClientId;
+
+            foreach (Plant plant in PlantUtils.GetPlantsOwnedByPlayer(localId))
+            {
+                plant.SetRestrictedAreaVisible(false);
+            }
+
+            foreach (Plant plant in PlantUtils.GetAllPlayerPlantsOfType(localId, SelectedType()))
+            {
+                plant.SetRestrictedAreaVisible(true);
+            }
+
+            previouslySelected = SelectedType();
         }
 
         public void Update()

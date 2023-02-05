@@ -17,6 +17,7 @@
 // SOFTWARE.
 
 using nickmaltbie.IntoTheRoots.Player;
+using nickmaltbie.IntoTheRoots.UI;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -24,6 +25,7 @@ namespace nickmaltbie.IntoTheRoots.Plants
 {
     public enum PlantType
     {
+        None,
         Producer,
         Tree,
         Vegetable,
@@ -33,6 +35,12 @@ namespace nickmaltbie.IntoTheRoots.Plants
     [RequireComponent(typeof(Collider2D))]
     public class Plant : NetworkBehaviour
     {
+        /// <summary>
+        /// Circle mask for roots layer.
+        /// </summary>
+        [SerializeField]
+        public Sprite rootsMask;
+
         /// <summary>
         /// Name of this type of plant.
         /// </summary>
@@ -91,6 +99,21 @@ namespace nickmaltbie.IntoTheRoots.Plants
         private ParticleSystem resourceParticle;
 
         /// <summary>
+        /// Restricted area for drawing roots.
+        /// </summary>
+        private SpriteMask restrictedArea;
+
+        /// <summary>
+        /// Area in which the player can grow plants.
+        /// </summary>
+        private SpriteMask growArea;
+
+        /// <summary>
+        /// String description of this plant's costs and benefits.
+        /// </summary>
+        public string plantDescription;
+
+        /// <summary>
         /// Get the radius of this object
         /// </summary>
         /// <returns></returns>
@@ -113,21 +136,60 @@ namespace nickmaltbie.IntoTheRoots.Plants
             }
         }
 
+        public void SetRestrictedAreaVisible(bool visible)
+        {
+            restrictedArea.enabled = visible;
+        }
+
         public void Start()
         {
             SpriteRenderer sr = GetComponent<SpriteRenderer>();
             Collider2D collider = GetComponent<Collider2D>();
             sr.sortingOrder = -Mathf.RoundToInt(collider.bounds.min.y * 100);
             resourceParticle = GetComponent<ParticleSystem>();
+
+            if (IsOwner)
+            {
+                VisualizeRange();
+                SetRestrictedAreaVisible(PlantIconTableau.Singleton.SelectedType() == plantType);
+            }
+        }
+
+        public void VisualizeRange()
+        {
+            restrictedArea = new GameObject().AddComponent<SpriteMask>();
+            restrictedArea.transform.SetParent(transform);
+            restrictedArea.transform.localPosition = Vector3.zero;
+
+            float diameter = restrictedDistance * 2;
+            restrictedArea.sprite = rootsMask;
+            restrictedArea.transform.localScale = new Vector3(diameter, diameter, 1);
+            restrictedArea.renderingLayerMask = RenderLayerMasks.RestrictedRootsRenderLayer;
+            restrictedArea.isCustomRangeActive = true;
+            restrictedArea.frontSortingLayerID = RenderLayerMasks.RestrictedRangeSortingLayer;
+            restrictedArea.backSortingLayerID = RenderLayerMasks.RestrictedRangeSortingLayer;
+            restrictedArea.backSortingOrder = -1;
+
+            if (growRange > 0)
+            {
+                growArea = new GameObject().AddComponent<SpriteMask>();
+                growArea.transform.SetParent(transform);
+                growArea.transform.localPosition = Vector3.zero;
+                float growDiameter = growRange * 2;
+
+                growArea.sprite = rootsMask;
+                growArea.transform.localScale = new Vector3(growDiameter, growDiameter, 1);
+                growArea.renderingLayerMask = RenderLayerMasks.GrowRangeRenderLayer;
+
+                growArea.isCustomRangeActive = true;
+                growArea.frontSortingLayerID = RenderLayerMasks.GrowRangeSortingLayer;
+                growArea.backSortingLayerID = RenderLayerMasks.GrowRangeSortingLayer;
+                growArea.backSortingOrder = -1;
+            }
         }
 
         public void Update()
         {
-            if (!IsServer)
-            {
-                return;
-            }
-
             elapsedSinceProduced += Time.deltaTime;
 
             while (elapsedSinceProduced > produceInterval)
@@ -139,6 +201,11 @@ namespace nickmaltbie.IntoTheRoots.Plants
 
         public void Produce()
         {
+            if (!IsServer && !IsOwner)
+            {
+                return;
+            }
+
             var resources = PlayerResources.GetResources(OwnerClientId);
 
             if (resources == null)
@@ -148,11 +215,15 @@ namespace nickmaltbie.IntoTheRoots.Plants
 
             foreach ((Resource, int) produced in production.EnumerateResources())
             {
-                resources.AddResources(produced.Item1, produced.Item2);
                 //Produce corresponding resource particle effect
-                var ts = resourceParticle.textureSheetAnimation;
+                ParticleSystem.TextureSheetAnimationModule ts = resourceParticle.textureSheetAnimation;
                 ts.SetSprite(0, resourceSprites.GetIcon(produced.Item1));
                 resourceParticle.Play();
+
+                if (IsServer)
+                {
+                    resources.AddResources(produced.Item1, produced.Item2);
+                }
             }
         }
     }

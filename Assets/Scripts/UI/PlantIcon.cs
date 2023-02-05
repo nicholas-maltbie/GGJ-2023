@@ -25,6 +25,9 @@ namespace nickmaltbie.IntoTheRoots.UI
 {
     public class PlantIcon : MonoBehaviour
     {
+        public float transparency = 0.75f;
+        public Color selectedColor = new Color(255, 255, 153);
+        public Image panel;
         public Image icon;
         public Image border;
         public TMP_Text plantName;
@@ -33,9 +36,22 @@ namespace nickmaltbie.IntoTheRoots.UI
         public int plantIndex;
         public Plant plant;
 
+        private Color basicColor = new Color(0, 0, 0);
+
         public void SetSelected(bool value)
         {
             border.enabled = value;
+            panel.color = value ? selectedColor : basicColor;
+            panel.color = new Color(panel.color.r, panel.color.g, panel.color.b, transparency);
+            if (value)
+            {
+                PlantDetailsDisplay.UpdateDisplay(plant);
+            }
+        }
+
+        public void Awake()
+        {
+            basicColor = panel.color;
         }
 
         public void Start()
