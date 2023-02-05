@@ -99,6 +99,7 @@ public class ScriptBatch : IPostprocessBuildWithReport, IPreprocessBuildWithRepo
     [MenuItem("Build/Demo/WebGL Build")]
     public static void WebGLBuild()
     {
+        PlayerSettings.WebGL.template = "PROJECT:Better2020";
         PlayerSettings.SetScriptingBackend(BuildTargetGroup.WebGL, ScriptingImplementation.IL2CPP);
 
         // Get file path of build.
@@ -173,6 +174,7 @@ public class ScriptBatch : IPostprocessBuildWithReport, IPreprocessBuildWithRepo
     [MenuItem("Build/Official/WebGL Build")]
     public static void OfficialBuild_WebGL()
     {
+        PlayerSettings.WebGL.template = "PROJECT:Better2020";
         PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Gzip;
         PlayerSettings.WebGL.decompressionFallback = true;
         var options = new BuildPlayerOptions
