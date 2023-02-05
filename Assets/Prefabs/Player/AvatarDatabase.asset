@@ -13,10 +13,14 @@ MonoBehaviour:
   m_Name: AvatarDatabase
   m_EditorClassIdentifier: 
   avatars:
-  - {fileID: 21300000, guid: aabd723d078fd9243a8fb9c339252524, type: 3}
+  - {fileID: 21300000, guid: f717f2ef7c02d1f4aae3ef95ae33564b, type: 3}
   - {fileID: 21300000, guid: 7b7ae6aa36859ee4cb024d3e4a316867, type: 3}
   - {fileID: 21300000, guid: f6988d6d8651d9f4fa2d058501e98c82, type: 3}
   - {fileID: 21300000, guid: 6bec71063502c124c99bf04573a8a0fa, type: 3}
   - {fileID: 21300000, guid: 2a30f6eb430e9834cbcc81fdb1e8b7fc, type: 3}
   - {fileID: 21300000, guid: 284d72b8ad441e843971f919c77aed59, type: 3}
   - {fileID: 21300000, guid: 953cb77f187ef0440a70d4e307681870, type: 3}
+  - {fileID: 21300000, guid: bbab228d10a95f660a2356a69b495e4a, type: 3}
+  - {fileID: 21300000, guid: ed9443f9ce23eff4780089cc0756565e, type: 3}
+  - {fileID: 21300000, guid: 0c4901ddd8c0c83009481032edace67f, type: 3}
+  - {fileID: 21300000, guid: 0f0910c26a24f0aaa8e879f3cc8c29fb, type: 3}
