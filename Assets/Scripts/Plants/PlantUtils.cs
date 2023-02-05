@@ -32,9 +32,6 @@ namespace nickmaltbie.IntoTheRoots.Plants
         {
             Vector2 dir = new Vector2(plant.transform.position.x, plant.transform.position.y) - position;
             hit = Physics2D.Raycast(position, dir.normalized, dir.magnitude, RootLayerMask | PlantLayerMask);
-
-            UnityEngine.Debug.Log($"dir:{dir} hit:{hit.distance} obj:{hit.collider}");
-
             return hit.collider.gameObject == plant.gameObject;
         }
 
