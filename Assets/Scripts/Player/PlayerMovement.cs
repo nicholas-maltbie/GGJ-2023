@@ -59,7 +59,7 @@ namespace nickmaltbie.IntoTheRoots.Player
                 }
 
                 Vector2 delta = move * moveSpeed * Time.deltaTime;
-                
+
                 Vector3 previousPosition = transform.position;
                 transform.position += new Vector3(delta.x, delta.y);
 
