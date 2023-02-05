@@ -201,6 +201,11 @@ namespace nickmaltbie.IntoTheRoots.Plants
 
         public void Produce()
         {
+            if (!IsServer && !IsOwner)
+            {
+                return;
+            }
+
             var resources = PlayerResources.GetResources(OwnerClientId);
 
             if (resources == null)
