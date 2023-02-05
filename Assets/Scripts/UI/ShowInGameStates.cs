@@ -16,13 +16,14 @@
 // ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System.Linq;
 using UnityEngine;
 
 namespace nickmaltbie.IntoTheRoots.UI
 {
-    public class ShowInGameState : MonoBehaviour
+    public class ShowInGameStates : MonoBehaviour
     {
-        public GameState targetState;
+        public GameState[] targetStates;
         public GameObject show;
 
         public void Start()
@@ -31,7 +32,7 @@ namespace nickmaltbie.IntoTheRoots.UI
 
         public void Update()
         {
-            bool enabled = GameLoop.Singleton.CurrentState == targetState;
+            bool enabled = targetStates.Any(state => state == GameLoop.Singleton.CurrentState);
             show.gameObject.SetActive(enabled);
         }
     }
