@@ -166,6 +166,7 @@ MonoBehaviour:
   - {fileID: 486149923664253863, guid: f10c1049cf1023643a6e62b66fcb3f9d, type: 3}
   - {fileID: 3127225395034414389, guid: d926dc1c95f109649bf16be0ae3a3bb8, type: 3}
   - {fileID: -1115252214597416267, guid: 9faf55cbf723c7341aa7b1fe72ea5c60, type: 3}
+  - {fileID: 486149923664253863, guid: 4c78319707138eb498174ec100a36b26, type: 3}
   initialScreen: 0
   inputActions: {fileID: -944628639613478452, guid: cd7e51aeaf5ab844ba9a3c53086a8e80, type: 3}
   maxScreenHistory: 100
