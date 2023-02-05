@@ -40,13 +40,13 @@ namespace nickmaltbie.IntoTheRoots.UI
                 {
                     winMessage.text = $"You Won!";
                 }
-                else if (winner > 0)
+                else if (winner == -1L)
                 {
-                    winMessage.text = $"Player {loop.Winner} has won!";
+                    winMessage.text = $"Oh, I guess no one won... didn't get to 100 points";
                 }
                 else
                 {
-                    winMessage.text = $"Oh, I guess no one won... didn't get to 100 points";
+                    winMessage.text = $"Player {loop.Winner} has won!\n(but that's not you)";
                 }
             }
         }
