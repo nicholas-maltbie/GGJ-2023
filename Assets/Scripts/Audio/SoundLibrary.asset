@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e0d8e9d5ca480349b66865ad143085c, type: 3}
+  m_Name: SoundLibrary
+  m_EditorClassIdentifier: 
+  victoryClip: {fileID: 8300000, guid: d1d71e7cee627a4469d583c1993fbbf5, type: 3}
+  failureClip: {fileID: 0}
+  placementClipLight: {fileID: 0}
+  placementClipHefty: {fileID: 0}
+  placementClipHeavy: {fileID: 0}
