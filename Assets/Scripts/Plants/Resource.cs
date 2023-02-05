@@ -26,6 +26,7 @@ namespace nickmaltbie.IntoTheRoots.Plants
         Sun,
         Water,
         Seeds,
+        VP
     }
 
     [Serializable]
