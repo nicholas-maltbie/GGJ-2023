@@ -1,6 +1,6 @@
-# Roots Game GGJ
+# Isle of Roots
 
-Into The Roots is an open source project hosted at
+Isle of Roots is an open source project hosted at
 [https://github.com/nicholas-maltbie/GGJ-2023](https://github.com/nicholas-maltbie/GGJ-2023)
 
 This is an open source project licensed under a [MIT License](LICENSE.txt).
