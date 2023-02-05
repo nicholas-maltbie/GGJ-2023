@@ -37,8 +37,9 @@ namespace nickmaltbie.IntoTheRoots
         public static GameLoop Singleton { get; private set; }
 
         public GameState CurrentState => gameState.Value;
-        public int Winner => winner.Value;
+        public long Winner => winner.Value;
 
+        public int vpThreshold = 100;
         public float scorePhaseTime = 15.0f;
 
         private float scoreElapsedTime = 0.0f;
@@ -48,7 +49,7 @@ namespace nickmaltbie.IntoTheRoots
             readPerm: NetworkVariableReadPermission.Everyone
         );
 
-        private NetworkVariable<int> winner = new NetworkVariable<int>(
+        private NetworkVariable<long> winner = new NetworkVariable<long>(
             value: -1,
             readPerm: NetworkVariableReadPermission.Everyone
         );
@@ -84,6 +85,20 @@ namespace nickmaltbie.IntoTheRoots
                     if (scoreElapsedTime > scorePhaseTime)
                     {
                         StartLobbyState();
+                    }
+
+                    break;
+                case GameState.Planting:
+                    // Check if any player has reached 100 points
+                    foreach (uint clientId in NetworkManager.Singleton.ConnectedClientsIds)
+                    {
+                        var resources = PlayerResources.GetResources(clientId);
+                        int vp = resources.GetVictoryPoints();
+
+                        if (vp >= vpThreshold)
+                        {
+                            StartScoreState();
+                        }
                     }
 
                     break;
@@ -193,7 +208,20 @@ namespace nickmaltbie.IntoTheRoots
 
             scoreElapsedTime = 0.0f;
             gameState.Value = GameState.Score;
-            winner.Value = 0;
+            winner.Value = -1;
+
+            int highScore = vpThreshold;
+            foreach (uint clientId in NetworkManager.Singleton.ConnectedClientsIds)
+            {
+                var resources = PlayerResources.GetResources(clientId);
+                int vp = resources.GetVictoryPoints();
+
+                if (vp >= highScore)
+                {
+                    highScore = vp;
+                    winner.Value = clientId;
+                }
+            }
         }
     }
 }
