@@ -39,6 +39,11 @@ namespace nickmaltbie.IntoTheRoots.Plants
 
         public static IEnumerable<Plant> GetPlantsOwnedByPlayer(ulong owner)
         {
+            if (NetworkManager.Singleton == null || NetworkManager.Singleton.SpawnManager is null)
+            {
+                return Enumerable.Empty<Plant>();
+            }
+
             return NetworkManager.Singleton.SpawnManager.GetClientOwnedObjects(owner)
                 .Select(networkObj => networkObj.GetComponent<Plant>())
                 .Where(plant => plant != null);

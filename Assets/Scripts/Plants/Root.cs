@@ -8,6 +8,7 @@ namespace nickmaltbie.IntoTheRoots.Plants
     [RequireComponent(typeof(BoxCollider2D))]
     public class Root : NetworkBehaviour
     {
+        public bool successfulCreation;
         public float rootWidth = 0.1f;
 
         NetworkVariable<NetworkObjectReference> source = new NetworkVariable<NetworkObjectReference>(
@@ -25,7 +26,17 @@ namespace nickmaltbie.IntoTheRoots.Plants
 
         public void Start()
         {
+            SpriteRenderer sr = GetComponent<SpriteRenderer>();
+            sr.enabled = false;
             RenderPath();
+        }
+
+        public void Update()
+        {
+            if (!successfulCreation)
+            {
+                RenderPath();
+            }
         }
 
         public void RenderPath()
@@ -35,6 +46,12 @@ namespace nickmaltbie.IntoTheRoots.Plants
 
             if (source == null || dest == null)
             {
+                // Sometimes on client source or dest will have not
+                // spawned yet, so in that case, we will just 
+                // need to keep attempting again until the objects
+                // have spawned on this client.
+                successfulCreation = false;
+                sr.enabled = false;
                 return;
             }
 
@@ -54,6 +71,9 @@ namespace nickmaltbie.IntoTheRoots.Plants
 
             BoxCollider2D box = GetComponent<BoxCollider2D>();
             box.size = new Vector2(rootWidth, dist);
+
+            successfulCreation = true;
+            sr.enabled = true;
         }
     }
 }
