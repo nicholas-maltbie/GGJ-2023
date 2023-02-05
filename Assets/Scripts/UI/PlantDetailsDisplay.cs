@@ -28,7 +28,7 @@ namespace nickmaltbie.IntoTheRoots
         /// <summary>
         /// Singleton plants display, which will be accessed when a new plant is selected.
         /// </summary>
-        public static PlantDetailsDisplay singleton;
+        public static PlantDetailsDisplay Singleton { get; private set; }
 
         /// <summary>
         /// TMP for plant name.
@@ -55,20 +55,25 @@ namespace nickmaltbie.IntoTheRoots
         /// </summary>
         public TextMeshProUGUI waterCost, waterGain;
 
+        public void Awake()
+        {
+            Singleton = this;
+        }
+
         public static void UpdateDisplay(Plants.Plant selectedPlant)
         {
-            if (singleton)
+            if (Singleton)
             {
-                singleton.seedCost.text = "" + selectedPlant.cost.Seed;
-                singleton.sunCost.text = "" + selectedPlant.cost.Sun;
-                singleton.waterCost.text = "" + selectedPlant.cost.Water;
+                Singleton.seedCost.text = "" + selectedPlant.cost.Seed;
+                Singleton.sunCost.text = "" + selectedPlant.cost.Sun;
+                Singleton.waterCost.text = "" + selectedPlant.cost.Water;
 
-                singleton.seedGain.text = "" + selectedPlant.production.Seed / selectedPlant.produceInterval;
-                singleton.sunGain.text = "" + selectedPlant.production.Sun / selectedPlant.produceInterval;
-                singleton.waterGain.text = "" + selectedPlant.production.Water / selectedPlant.produceInterval;
+                Singleton.seedGain.text = "" + selectedPlant.production.Seed / selectedPlant.produceInterval;
+                Singleton.sunGain.text = "" + selectedPlant.production.Sun / selectedPlant.produceInterval;
+                Singleton.waterGain.text = "" + selectedPlant.production.Water / selectedPlant.produceInterval;
 
-                singleton.description.text = selectedPlant.plantDescription;
-                singleton.plantName.text = selectedPlant.GetComponent<NetworkBehaviour>().name;
+                Singleton.description.text = selectedPlant.plantDescription;
+                Singleton.plantName.text = selectedPlant.GetComponent<NetworkBehaviour>().name;
             }
         }
     }

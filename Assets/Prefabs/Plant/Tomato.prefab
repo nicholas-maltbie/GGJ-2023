@@ -60,7 +60,7 @@ MonoBehaviour:
     Seed: 0
   produceInterval: 1
   restrictedDistance: 2
-  victoryPoints: 4
+  victoryPoints: 10
   growRange: 0
   resourceSprites: {fileID: 11400000, guid: 3a663d3a5ae7c9b46993ae4abe0550f3, type: 2}
   plantDescription: Tomatos don't produce resources, but give victory points when
