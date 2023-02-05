@@ -57,7 +57,7 @@ namespace nickmaltbie.IntoTheRoots
         public TextMeshProUGUI waterCost, waterGain;
 
         /// <summary>
-        /// TMP for ticks per second & VP amount
+        /// TMP for ticks per second and VP amount
         /// </summary>
         public TextMeshProUGUI produceInterval, vpAmount;
 
