@@ -49,7 +49,34 @@ namespace nickmaltbie.IntoTheRoots.Player
             ResourceValues cost = plant.cost;
             PlayerResources stored = GetComponent<PlayerResources>();
 
-            bool verdict = true;
+            foreach (Resource resource in Enum.GetValues(typeof(Resource)))
+            {
+                int required = cost.GetResourceValue(resource);
+                int current = stored.GetResourceCount(resource);
+
+                if (required <= 0)
+                {
+                    continue;
+                }
+
+                if (required > current)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public void Update()
+        {
+            UpdatePlantDisplay();
+        }
+
+        public void UpdatePlantDisplay()
+        {
+            ResourceValues cost = toPlant.cost;
+            PlayerResources stored = GetComponent<PlayerResources>();
 
             foreach (Resource resource in Enum.GetValues(typeof(Resource)))
             {
@@ -60,7 +87,6 @@ namespace nickmaltbie.IntoTheRoots.Player
                 {
                     // cannot plant
                     PlantDetailsDisplay.Singleton.SetResourceHighlight(resource, true);
-                    verdict = false;
                 }
                 else
                 {
@@ -68,8 +94,6 @@ namespace nickmaltbie.IntoTheRoots.Player
                     PlantDetailsDisplay.Singleton.SetResourceHighlight(resource, false);
                 }
             }
-
-            return verdict;
         }
 
         public bool CanPlant(Plant target)

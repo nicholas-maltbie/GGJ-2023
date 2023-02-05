@@ -61,9 +61,12 @@ namespace nickmaltbie.IntoTheRoots
         /// </summary>
         public Image seedSprite, sunSprite, waterSprite;
 
+        private Color orange;
+
         public void Awake()
         {
             Singleton = this;
+            orange = Color.Lerp(Color.red, Color.yellow, 0.5f);
         }
 
         public static void UpdateDisplay(Plants.Plant selectedPlant)
@@ -87,7 +90,7 @@ namespace nickmaltbie.IntoTheRoots
         {
             if(isNeeded)
             {
-                resourceImage.color = Color.yellow;
+                resourceImage.color = this.orange;
             }
             else
             {
@@ -106,7 +109,7 @@ namespace nickmaltbie.IntoTheRoots
                     SetResoureAsNeeded(sunSprite, isNeeded);
                     break;
                 case Plants.Resource.Water:
-                    SetResoureAsNeeded(seedSprite, isNeeded);
+                    SetResoureAsNeeded(waterSprite, isNeeded);
                     break;
                 default:
                     break;
