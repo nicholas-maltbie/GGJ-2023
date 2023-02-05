@@ -31,7 +31,7 @@ namespace nickmaltbie.IntoTheRoots.UI
         public void Update()
         {
             GameLoop loop = GameLoop.Singleton;
-            bool enabled = NetworkManager.Singleton.IsServer && loop.CurrentState == GameState.Score;
+            bool enabled = loop.CurrentState == GameState.Score;
             scorePanel.gameObject.SetActive(enabled);
 
             if (enabled)
