@@ -107,19 +107,16 @@ namespace nickmaltbie.IntoTheRoots.UI
             selected = index;
             icons[selected].SetSelected(true);
 
-            if (previouslySelected != SelectedType())
+            ulong localId = NetworkManager.Singleton.LocalClientId;
+
+            foreach (Plant plant in PlantUtils.GetPlantsOwnedByPlayer(localId))
             {
-                ulong localId = NetworkManager.Singleton.LocalClientId;
+                plant.SetRestrictedAreaVisible(false);
+            }
 
-                foreach (Plant plant in PlantUtils.GetAllPlayerPlantsOfType(localId, previouslySelected))
-                {
-                    plant.SetRestrictedAreaVisible(false);
-                }
-
-                foreach (Plant plant in PlantUtils.GetAllPlayerPlantsOfType(localId, SelectedType()))
-                {
-                    plant.SetRestrictedAreaVisible(true);
-                }
+            foreach (Plant plant in PlantUtils.GetAllPlayerPlantsOfType(localId, SelectedType()))
+            {
+                plant.SetRestrictedAreaVisible(true);
             }
 
             previouslySelected = SelectedType();
