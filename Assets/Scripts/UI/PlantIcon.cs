@@ -36,6 +36,10 @@ namespace nickmaltbie.IntoTheRoots.UI
         public void SetSelected(bool value)
         {
             border.enabled = value;
+            if( value )
+            {
+                PlantDetailsDisplay.UpdateDisplay(plant);
+            }
         }
 
         public void Start()

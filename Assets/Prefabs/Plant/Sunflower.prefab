@@ -65,6 +65,8 @@ MonoBehaviour:
   victoryPoints: 1
   growRange: 0
   resourceSprites: {fileID: 11400000, guid: 3a663d3a5ae7c9b46993ae4abe0550f3, type: 2}
+  plantDescription: Sunflowers are inexpensive, and generate the Sun resource, but
+    require space to be grown.
 --- !u!212 &-9076792384468146927
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4980,7 +4982,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1730979929
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
