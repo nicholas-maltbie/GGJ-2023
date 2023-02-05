@@ -86,12 +86,13 @@ namespace nickmaltbie.IntoTheRoots
                     {
                         StartLobbyState();
                     }
+
                     break;
                 case GameState.Planting:
                     // Check if any player has reached 100 points
                     foreach (uint clientId in NetworkManager.Singleton.ConnectedClientsIds)
                     {
-                        PlayerResources resources = PlayerResources.GetResources(clientId);
+                        var resources = PlayerResources.GetResources(clientId);
                         int vp = resources.GetVictoryPoints();
 
                         if (vp >= vpThreshold)
@@ -99,6 +100,7 @@ namespace nickmaltbie.IntoTheRoots
                             StartScoreState();
                         }
                     }
+
                     break;
             }
         }
@@ -211,7 +213,7 @@ namespace nickmaltbie.IntoTheRoots
             int highScore = vpThreshold;
             foreach (uint clientId in NetworkManager.Singleton.ConnectedClientsIds)
             {
-                PlayerResources resources = PlayerResources.GetResources(clientId);
+                var resources = PlayerResources.GetResources(clientId);
                 int vp = resources.GetVictoryPoints();
 
                 if (vp >= highScore)
