@@ -55,8 +55,8 @@ namespace nickmaltbie.IntoTheRoots.Player
             PlayerMovement movement = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(clientId).GetComponent<PlayerMovement>();
 
             var spawnPos = new Vector2(
-                Random.value * 100 - 50,
-                Random.value * 100 - 50);
+                Random.value * 90 - 45,
+                Random.value * 90 - 45);
 
             movement.TeleportPlayerViaServer(spawnPos);
 
