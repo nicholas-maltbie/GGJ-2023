@@ -68,6 +68,34 @@ namespace nickmaltbie.IntoTheRoots.Player
             return true;
         }
 
+        public void Update()
+        {
+            UpdatePlantDisplay();
+        }
+
+        public void UpdatePlantDisplay()
+        {
+            ResourceValues cost = toPlant.cost;
+            PlayerResources stored = GetComponent<PlayerResources>();
+
+            foreach (Resource resource in Enum.GetValues(typeof(Resource)))
+            {
+                int required = cost.GetResourceValue(resource);
+                int current = stored.GetResourceCount(resource);
+
+                if (required > current)
+                {
+                    // cannot plant
+                    PlantDetailsDisplay.Singleton.SetResourceHighlight(resource, true);
+                }
+                else
+                {
+                    // can plant
+                    PlantDetailsDisplay.Singleton.SetResourceHighlight(resource, false);
+                }
+            }
+        }
+
         public bool CanPlant(Plant target)
         {
             bool hasResources = HasResourcesForPlant(target);
