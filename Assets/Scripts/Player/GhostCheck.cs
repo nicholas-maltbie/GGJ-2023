@@ -1,3 +1,20 @@
+// Copyright (C) 2023 Nicholas Maltbie
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+// associated documentation files (the "Software"), to deal in the Software without restriction,
+// including without limitation the rights to use, copy, modify, merge, publish, distribute,
+// sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all copies or
+// substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+// BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+// CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+// ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
 
 using System.Collections.Generic;
 using System.Linq;
@@ -55,7 +72,7 @@ namespace nickmaltbie.IntoTheRoots.Player
                     var ghostLink = new GameObject();
                     ghostLink.transform.SetParent(transform);
                     ghostLink.transform.localPosition = Vector3.zero;
-                    var linkSr = ghostLink.AddComponent<SpriteRenderer>();
+                    SpriteRenderer linkSr = ghostLink.AddComponent<SpriteRenderer>();
                     linkSr.sprite = rootSprite;
                     linkSr.tileMode = SpriteTileMode.Continuous;
                     linkSr.drawMode = SpriteDrawMode.Tiled;
@@ -122,7 +139,7 @@ namespace nickmaltbie.IntoTheRoots.Player
                     bool inRange = dist <= growZone.growRange + radius;
                     return inRange;
                 }).ToArray();
-            
+
             // For each grow zone in range, draw a line to check if a
             // root can be created
             int linkAvailable = 0;
@@ -154,6 +171,7 @@ namespace nickmaltbie.IntoTheRoots.Player
             {
                 ghostSprite.color = invalidColor;
             }
+
             if (growZonesInRange.Length > 0 && allOverlap)
             {
                 ghostSprite.color = overlapColor;
