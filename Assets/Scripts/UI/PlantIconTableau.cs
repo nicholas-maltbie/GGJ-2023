@@ -1,3 +1,4 @@
+using System;
 // Copyright (C) 2023 Nicholas Maltbie
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
@@ -27,7 +28,8 @@ namespace nickmaltbie.IntoTheRoots.UI
 {
     public class PlantIconTableau : MonoBehaviour
     {
-        public InputActionReference changeSelected;
+        public InputActionReference changeSelectedScroll;
+        public InputActionReference changeSelectedKey;
         public PlantDatabase plantDatabase;
         public PlantIcon plantIconPrefab;
         public int bufferPixels = 5;
@@ -56,7 +58,8 @@ namespace nickmaltbie.IntoTheRoots.UI
             }
 
             icons[selected].SetSelected(true);
-            changeSelected.action.Enable();
+            changeSelectedScroll.action.Enable();
+            changeSelectedKey.action.Enable();
         }
 
         public void SetSelected(int index)
@@ -80,8 +83,17 @@ namespace nickmaltbie.IntoTheRoots.UI
 
         public void Update()
         {
-            float value = changeSelected.action.ReadValue<float>();
+            //Get Scroll wheel input
+            float value = changeSelectedScroll.action.ReadValue<float>();
             int nextSelected = selected + Mathf.RoundToInt(value);
+
+            //Get Keyboard input
+            float value1 = changeSelectedKey.action.ReadValue<float>();
+
+            //If Keyboard input, change nextSelected
+            if(changeSelectedKey.action.triggered) {
+                nextSelected = Mathf.RoundToInt(value1);
+            }
 
             while (nextSelected < 0)
             {

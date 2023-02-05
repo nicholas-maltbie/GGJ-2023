@@ -105,13 +105,22 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ChangePlant",
+                    "name": "ChangePlantWheel",
                     "type": "PassThrough",
                     "id": "eec09fb0-758c-4c88-aec7-0e90af66b242",
                     "expectedControlType": "Axis",
                     "processors": "AxisDeadzone,Clamp(min=-1,max=1)",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ChangePlantKey",
+                    "type": "Value",
+                    "id": "0b0b216b-a2bd-49f7-ac61-dac7a1ed866e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -573,7 +582,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ChangePlant",
+                    "action": "ChangePlantWheel",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -584,7 +593,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ChangePlant",
+                    "action": "ChangePlantWheel",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -595,9 +604,42 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ChangePlant",
+                    "action": "ChangePlantWheel",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "1095730e-939f-4f7a-ac17-698d76d4c2a3",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "Scale",
+                    "groups": "",
+                    "action": "ChangePlantKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "97892572-3a32-4690-88d4-a6a95a9e925e",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "Scale(factor=2)",
+                    "groups": "",
+                    "action": "ChangePlantKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9a6f51d0-11e2-4b94-888a-c370b7bf2afe",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "Scale(factor=3)",
+                    "groups": "",
+                    "action": "ChangePlantKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
