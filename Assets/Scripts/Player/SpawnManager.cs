@@ -24,6 +24,8 @@ namespace nickmaltbie.IntoTheRoots.Player
 {
     public class SpawnManager : NetworkBehaviour
     {
+        public PlantDatabase plantDatabase;
+
         public Plant treePrefab;
         public Plant sunflowerPrefab;
         public Plant watermelonPrefab;
@@ -62,6 +64,8 @@ namespace nickmaltbie.IntoTheRoots.Player
             sunflower.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
             watermelon.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
 
+            PlantUtils.SpawnRootBetweenPlants(plantDatabase.rootPrefab.gameObject, tree.GetComponent<Plant>(), sunflower.GetComponent<Plant>(), OwnerClientId);
+            PlantUtils.SpawnRootBetweenPlants(plantDatabase.rootPrefab.gameObject, tree.GetComponent<Plant>(), watermelon.GetComponent<Plant>(), OwnerClientId);
         }
     }
 }

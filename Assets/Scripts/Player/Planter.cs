@@ -97,11 +97,16 @@ namespace nickmaltbie.IntoTheRoots.Player
                 return;
             }
 
-            GameObject go = Instantiate(plant.gameObject, transform.position, Quaternion.identity);
-            go.GetComponent<NetworkObject>().SpawnWithOwnership(OwnerClientId);
+            // Closest tree
+            Plant closestParent = PlantUtils.ClosestGrowZone(transform.position, OwnerClientId);
+
+            GameObject plantGo = Instantiate(plant.gameObject, transform.position, Quaternion.identity);
+            plantGo.GetComponent<NetworkObject>().SpawnWithOwnership(OwnerClientId);
 
             // Decrease player resources by requested amount
             SpendResourcesForPlant(plant);
+
+            PlantUtils.SpawnRootBetweenPlants(plantDatabase.rootPrefab.gameObject, closestParent, plantGo.GetComponent<Plant>(), OwnerClientId);
         }
     }
 }

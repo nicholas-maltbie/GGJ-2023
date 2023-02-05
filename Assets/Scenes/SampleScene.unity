@@ -824,6 +824,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2146637811943812434, guid: 92e97b1e6f02a4f468e5b5a19ee1a9f4, type: 3}
+      propertyPath: plantDatabase
+      value: 
+      objectReference: {fileID: 11400000, guid: 99fb61debff13bd4fb0fb1e99e886394, type: 2}
     - target: {fileID: 2146637811943812435, guid: 92e97b1e6f02a4f468e5b5a19ee1a9f4, type: 3}
       propertyPath: m_RootOrder
       value: 7

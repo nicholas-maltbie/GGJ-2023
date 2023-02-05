@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f850e47caef388429d9ef520c8694bf, type: 3}
   m_Name: PlantDatabase
   m_EditorClassIdentifier: 
+  rootPrefab: {fileID: 85688089244827744, guid: 5f18b8fad0773174db5d0f2016d9902b, type: 3}
   plants:
   - {fileID: -6072568467149352374, guid: adeb1cc60bab8554991952b9f283e607, type: 3}
   - {fileID: -6072568467149352374, guid: 55b4e728f4659b540927bc46faaa75ab, type: 3}
