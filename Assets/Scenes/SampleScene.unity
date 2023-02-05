@@ -123,6 +123,26 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &54532100 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2146637811943812436, guid: 92e97b1e6f02a4f468e5b5a19ee1a9f4, type: 3}
+  m_PrefabInstance: {fileID: 2146637811940512006}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &54532104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54532100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e288547d1cd469343928ee582f2f6f99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scorePhaseTime: 15
+  planterPlayerPrefab: {fileID: 3743162162709521265, guid: 614836a92d6906a49a4141ca525e26fd, type: 3}
+  lobbyPlayerPrefab: {fileID: 6996795626949472644, guid: c8feaeed34b321745ba3a846b906a412, type: 3}
 --- !u!1 &654442941
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,7 +588,7 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 0}
-    PlayerPrefab: {fileID: 3743162162709521265, guid: 614836a92d6906a49a4141ca525e26fd, type: 3}
+    PlayerPrefab: {fileID: 0}
     NetworkPrefabs: []
     TickRate: 30
     ClientConnectionBufferTimeout: 10

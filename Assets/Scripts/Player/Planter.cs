@@ -22,6 +22,7 @@ using nickmaltbie.IntoTheRoots.Plants;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.InputSystem.InputAction;
 
 namespace nickmaltbie.IntoTheRoots.Player
 {
@@ -79,13 +80,21 @@ namespace nickmaltbie.IntoTheRoots.Player
         public void Start()
         {
             plantAction.action.Enable();
-            plantAction.action.performed += (_) =>
+            plantAction.action.performed += OnPlant;
+        }
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            plantAction.action.performed -= OnPlant;
+        }
+
+        public void OnPlant(CallbackContext context)
+        {
+            if (IsOwner && CanPlant(toPlant))
             {
-                if (IsOwner && CanPlant(toPlant))
-                {
-                    SpawnPlantServerRpc(plantDatabase.GetPlantIndex(toPlant));
-                }
-            };
+                SpawnPlantServerRpc(plantDatabase.GetPlantIndex(toPlant));
+            }
         }
 
         [ServerRpc(RequireOwnership = true)]

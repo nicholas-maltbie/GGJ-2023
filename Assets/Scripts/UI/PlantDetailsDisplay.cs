@@ -55,11 +55,6 @@ namespace nickmaltbie.IntoTheRoots
         /// </summary>
         public TextMeshProUGUI waterCost, waterGain;
 
-        private void Awake()
-        {
-            singleton = this;
-        }
-
         public static void UpdateDisplay(Plants.Plant selectedPlant)
         {
             if (singleton)

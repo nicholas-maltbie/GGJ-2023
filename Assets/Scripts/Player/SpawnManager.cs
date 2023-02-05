@@ -24,6 +24,8 @@ namespace nickmaltbie.IntoTheRoots.Player
 {
     public class SpawnManager : NetworkBehaviour
     {
+        public static SpawnManager Singleton { get; private set; }
+
         public PlantDatabase plantDatabase;
 
         public Plant treePrefab;
@@ -32,14 +34,16 @@ namespace nickmaltbie.IntoTheRoots.Player
 
         public void Start()
         {
-            NetworkManager.Singleton.OnClientConnectedCallback += SpawnPlayer;
-            NetworkManager.Singleton.OnServerStarted += () =>
+            if (Singleton != null)
             {
-                SpawnPlayer(OwnerClientId);
-            };
+                Destroy(gameObject);
+                return;
+            }
+
+            Singleton = this;
         }
 
-        public void SpawnPlayer(ulong clientId)
+        public void CreateStartingPlantsForPlayer(ulong clientId)
         {
             if (!IsServer)
             {
