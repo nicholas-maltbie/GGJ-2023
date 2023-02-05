@@ -72,10 +72,21 @@ namespace nickmaltbie.IntoTheRoots.Plants
                 return;
             }
 
+            ShapePath(source.gameObject, dest.gameObject, gameObject, sr);
+            float dist = Vector2.Distance(source.transform.position, dest.transform.position);
+            BoxCollider2D box = GetComponent<BoxCollider2D>();
+            box.size = new Vector2(rootWidth, dist);
+
+            successfulCreation = true;
+            sr.enabled = true;
+        }
+
+        public static void ShapePath(GameObject source, GameObject dest, GameObject root, SpriteRenderer sr)
+        {
             // Set the position of this object
             // to be between the first and second object
             float dist = Vector2.Distance(source.transform.position, dest.transform.position);
-            transform.position = (source.transform.position + dest.transform.position) / 2;
+            root.transform.position = (source.transform.position + dest.transform.position) / 2;
 
             sr.drawMode = SpriteDrawMode.Tiled;
             sr.tileMode = SpriteTileMode.Continuous;
@@ -83,13 +94,7 @@ namespace nickmaltbie.IntoTheRoots.Plants
 
             Vector2 delta = source.transform.position - dest.transform.position;
             float angle = -Mathf.Rad2Deg * Mathf.Atan2(delta.x, delta.y);
-            transform.rotation = Quaternion.Euler(0, 0, angle);
-
-            BoxCollider2D box = GetComponent<BoxCollider2D>();
-            box.size = new Vector2(rootWidth, dist);
-
-            successfulCreation = true;
-            sr.enabled = true;
+            root.transform.rotation = Quaternion.Euler(0, 0, angle);
         }
     }
 }
