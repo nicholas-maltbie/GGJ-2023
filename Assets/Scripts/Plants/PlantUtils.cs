@@ -25,16 +25,14 @@ namespace nickmaltbie.IntoTheRoots.Plants
 {
     public static class PlantUtils
     {
-        public static int PlantLayerMask()
+        public static readonly int RootLayerMask = Physics2D.GetLayerCollisionMask(LayerMask.NameToLayer("Root"));
+        public static readonly int PlantLayerMask = Physics2D.GetLayerCollisionMask(LayerMask.NameToLayer("Plant"));
+
+        public static bool CanDrawRootToPlant(Vector2 position, Plant plant, out RaycastHit2D hit)
         {
-            int plantMask = LayerMask.NameToLayer("Plant");
-
-            if (plantMask == -1)
-            {
-                return Physics2D.AllLayers;
-            }
-
-            return Physics2D.GetLayerCollisionMask(plantMask);
+            Vector2 dir = new Vector2(plant.transform.position.x, plant.transform.position.y) - position;
+            hit = Physics2D.Raycast(position, dir.normalized, dir.magnitude, RootLayerMask | PlantLayerMask);
+            return hit.collider.gameObject == plant.gameObject;
         }
 
         public static IEnumerable<Plant> GetPlantsOwnedByPlayer(ulong owner)
@@ -61,14 +59,14 @@ namespace nickmaltbie.IntoTheRoots.Plants
 
         public static IEnumerable<Plant> GetPlantsInRadius(Vector2 position, float radius)
         {
-            return Physics2D.OverlapCircleAll(position, radius, PlantLayerMask())
+            return Physics2D.OverlapCircleAll(position, radius, PlantLayerMask)
                 .Select(collider => collider.GetComponent<Plant>())
                 .Where(plant => plant != null);
         }
 
         public static IEnumerable<GameObject> GetPlantsAndRootsInRadius(Vector2 position, float radius)
         {
-            return Physics2D.OverlapCircleAll(position, radius, PlantLayerMask())
+            return Physics2D.OverlapCircleAll(position, radius, PlantLayerMask | RootLayerMask)
                 .Where(collider =>
                     collider.GetComponent<Plant>() != null ||
                     collider.GetComponent<Root>() != null)
@@ -84,13 +82,35 @@ namespace nickmaltbie.IntoTheRoots.Plants
             root.SetPath(source.GetComponent<NetworkObject>(), dest.GetComponent<NetworkObject>());
         }
 
-        public static Plant ClosestGrowZone(Vector2 position, ulong owner)
+        public static IEnumerable<Plant> AllAvailableGrowZones(Vector2 position, Plant plant, ulong owner)
+        {
+            // Get all plants with a non-zero grow range owned
+            // by this player
+            IEnumerable<Plant> playerGrowZones = GetPlantsOwnedByPlayer(owner)
+                .Where(plant => plant.growRange > 0);
+
+            float radius = plant.Radius();
+            return playerGrowZones.Where(growZone =>
+            {
+                float dist = Vector2.Distance(position, growZone.transform.position);
+                bool inRange = dist <= growZone.growRange + radius;
+
+                if (inRange)
+                {
+                    return CanDrawRootToPlant(position, growZone, out RaycastHit2D _);
+                }
+
+                return false;
+            });
+        }
+
+        public static Plant ClosestAvailableGrowZone(Vector2 position, Plant plant, ulong owner)
         {
             IEnumerable<Plant> playerGrowZones = GetPlantsOwnedByPlayer(owner)
                 .Where(plant => plant.growRange > 0);
 
-            return playerGrowZones.Select(
-                growZone =>
+            return AllAvailableGrowZones(position, plant, owner)
+                .Select(growZone =>
                 {
                     float dist = Vector2.Distance(position, growZone.transform.position);
                     return (dist, growZone);
@@ -101,20 +121,7 @@ namespace nickmaltbie.IntoTheRoots.Plants
 
         public static bool IsInGrowRadius(Vector2 position, Plant plant, ulong owner)
         {
-            // Get all plants with a non-zero grow range owned
-            // by this player
-            IEnumerable<Plant> playerGrowZones = GetPlantsOwnedByPlayer(owner)
-                .Where(plant => plant.growRange > 0);
-
-            // Check if this plant's radius intersects
-            // with the grow range of at least one of those
-            // grow zones.
-            float radius = plant.Radius();
-            return playerGrowZones.Any(growZone =>
-            {
-                float dist = Vector2.Distance(position, growZone.transform.position);
-                return dist <= growZone.growRange + radius;
-            });
+            return AllAvailableGrowZones(position, plant, owner).Any();
         }
 
         public static bool IsPlantPlacementAllowed(Vector2 position, Plant plant, ulong owner)
