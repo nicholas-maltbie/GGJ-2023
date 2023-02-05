@@ -77,6 +77,7 @@ namespace nickmaltbie.IntoTheRoots.Player
                     linkSr.sprite = rootSprite;
                     linkSr.tileMode = SpriteTileMode.Continuous;
                     linkSr.drawMode = SpriteDrawMode.Tiled;
+                    linkSr.sortingLayerName = "Root Ghost";
                     linkSr.color = plantColor;
                     ghostLink.SetActive(false);
                     linkPool.Add(ghostLink);
