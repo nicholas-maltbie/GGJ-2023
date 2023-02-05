@@ -59,7 +59,7 @@ will verify the style of all changed files.
 
 ```PowerShell
 dotnet tool restore
-dotnet format --fix-style warn -v d .\IntoTheRoots.sln --check
+dotnet format --fix-style warn -v d .\GGJ-2023.sln --check
 ```
 
 ## 5. Done
