@@ -57,6 +57,11 @@ namespace nickmaltbie.IntoTheRoots
         public TextMeshProUGUI waterCost, waterGain;
 
         /// <summary>
+        /// TMP for ticks per second & VP amount
+        /// </summary>
+        public TextMeshProUGUI produceInterval, vpAmount;
+
+        /// <summary>
         /// Images for resource types.
         /// </summary>
         public Image seedSprite, sunSprite, waterSprite;
@@ -80,6 +85,9 @@ namespace nickmaltbie.IntoTheRoots
                 Singleton.seedGain.text = "" + selectedPlant.production.Seed / selectedPlant.produceInterval;
                 Singleton.sunGain.text = "" + selectedPlant.production.Sun / selectedPlant.produceInterval;
                 Singleton.waterGain.text = "" + selectedPlant.production.Water / selectedPlant.produceInterval;
+
+                Singleton.vpAmount.text = "" + selectedPlant.victoryPoints;
+                Singleton.produceInterval.text = "" + selectedPlant.produceInterval;
 
                 Singleton.description.text = selectedPlant.plantDescription;
                 Singleton.plantName.text = selectedPlant.GetComponent<NetworkBehaviour>().name;
