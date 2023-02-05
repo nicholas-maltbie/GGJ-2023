@@ -58,7 +58,7 @@ MonoBehaviour:
     Seed: 1
   production:
     Water: 0
-    Sun: 10
+    Sun: 1
     Seed: 0
   produceInterval: 1
   restrictedDistance: 2

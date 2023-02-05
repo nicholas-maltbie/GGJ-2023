@@ -60,9 +60,9 @@ MonoBehaviour:
     Water: 0
     Sun: 0
     Seed: 1
-  produceInterval: 1
+  produceInterval: 4
   restrictedDistance: 8
-  victoryPoints: 10
+  victoryPoints: 0
   growRange: 10
   resourceSprites: {fileID: 11400000, guid: 3a663d3a5ae7c9b46993ae4abe0550f3, type: 2}
   plantDescription: Oak trees provide seed production, and expand your grow range,
