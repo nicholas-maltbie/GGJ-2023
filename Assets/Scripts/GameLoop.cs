@@ -76,7 +76,7 @@ namespace nickmaltbie.IntoTheRoots
             {
                 Clients.Clear();
                 StartLobbyState();
-                
+
                 if (IsHost)
                 {
                     Clients.Add(NetworkManager.Singleton.LocalClientId);

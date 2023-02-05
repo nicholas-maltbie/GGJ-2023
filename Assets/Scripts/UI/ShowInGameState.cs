@@ -16,9 +16,7 @@
 // ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace nickmaltbie.IntoTheRoots.UI
 {
