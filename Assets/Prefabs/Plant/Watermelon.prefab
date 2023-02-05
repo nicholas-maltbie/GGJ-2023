@@ -65,6 +65,7 @@ MonoBehaviour:
   victoryPoints: 1
   growRange: 0
   resourceSprites: {fileID: 11400000, guid: 3a663d3a5ae7c9b46993ae4abe0550f3, type: 2}
+  plantDescription: Watermelons provide the Water resource, require space to be grown.
 --- !u!212 &-9076792384468146927
 SpriteRenderer:
   m_ObjectHideFlags: 0

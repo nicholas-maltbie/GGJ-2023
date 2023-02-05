@@ -43,6 +43,10 @@ namespace nickmaltbie.IntoTheRoots.UI
             border.enabled = value;
             panel.color = value ? selectedColor : basicColor;
             panel.color = new Color(panel.color.r, panel.color.g, panel.color.b, transparency);
+            if( value )
+            {
+                PlantDetailsDisplay.UpdateDisplay(plant);
+            }
         }
 
         public void Awake()

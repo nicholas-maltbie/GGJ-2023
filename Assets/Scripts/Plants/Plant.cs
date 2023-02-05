@@ -109,6 +109,11 @@ namespace nickmaltbie.IntoTheRoots.Plants
         private SpriteMask growArea;
 
         /// <summary>
+        /// String description of this plant's costs and benefits.
+        /// </summary>
+        public string plantDescription;
+
+        /// <summary>
         /// Get the radius of this object
         /// </summary>
         /// <returns></returns>

@@ -65,6 +65,8 @@ MonoBehaviour:
   victoryPoints: 10
   growRange: 10
   resourceSprites: {fileID: 11400000, guid: 3a663d3a5ae7c9b46993ae4abe0550f3, type: 2}
+  plantDescription: Oak trees provide seed production, and expand your grow range,
+    but are expensive and can't be placed near each other.
 --- !u!212 &-9076792384468146927
 SpriteRenderer:
   m_ObjectHideFlags: 0
