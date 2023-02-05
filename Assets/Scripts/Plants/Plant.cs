@@ -190,11 +190,6 @@ namespace nickmaltbie.IntoTheRoots.Plants
 
         public void Update()
         {
-            if (!IsServer)
-            {
-                return;
-            }
-
             elapsedSinceProduced += Time.deltaTime;
 
             while (elapsedSinceProduced > produceInterval)
@@ -215,11 +210,15 @@ namespace nickmaltbie.IntoTheRoots.Plants
 
             foreach ((Resource, int) produced in production.EnumerateResources())
             {
-                resources.AddResources(produced.Item1, produced.Item2);
                 //Produce corresponding resource particle effect
                 ParticleSystem.TextureSheetAnimationModule ts = resourceParticle.textureSheetAnimation;
                 ts.SetSprite(0, resourceSprites.GetIcon(produced.Item1));
                 resourceParticle.Play();
+
+                if (IsServer)
+                {
+                    resources.AddResources(produced.Item1, produced.Item2);
+                }
             }
         }
     }
