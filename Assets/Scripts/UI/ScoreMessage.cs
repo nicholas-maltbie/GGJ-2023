@@ -17,6 +17,7 @@
 // SOFTWARE.
 
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace nickmaltbie.IntoTheRoots.UI
@@ -34,7 +35,19 @@ namespace nickmaltbie.IntoTheRoots.UI
 
             if (enabled)
             {
-                winMessage.text = $"Player {loop.Winner} has won!";
+                int winner = loop.Winner;
+                if ((long) winner == (long) NetworkManager.Singleton.LocalClientId)
+                {
+                    winMessage.text = $"You Won!";   
+                }
+                else if (winner > 0)
+                {
+                    winMessage.text = $"Player {loop.Winner} has won!";
+                }
+                else
+                {
+                    winMessage.text = $"Oh, I guess no one won... didn't get to 100 points";
+                }
             }
         }
     }
