@@ -9,6 +9,8 @@ namespace nickmaltbie.IntoTheRoots.Player
 {
     public class GhostCheck : NetworkBehaviour
     {
+        public const int MaxDegreeGhost = 25;
+
         public Color validColor = Color.green;
         public Color invalidColor = new Color(0.1f, 0.1f, 0.1f, 0.2f);
         public Color overlapColor = new Color(1.0f, 0.0f, 0.0f, 0.2f);
@@ -48,7 +50,7 @@ namespace nickmaltbie.IntoTheRoots.Player
 
                 linkPool = new List<GameObject>();
 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < MaxDegreeGhost; i++)
                 {
                     var ghostLink = new GameObject();
                     ghostLink.transform.SetParent(transform);
