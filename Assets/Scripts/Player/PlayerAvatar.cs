@@ -31,6 +31,8 @@ namespace nickmaltbie.IntoTheRoots.Player
     {
         public AvatarDatabase avatarDb;
 
+        private int loadedAvatar;
+
         private NetworkVariable<int> selectedAvatar = new NetworkVariable<int>(
             value: 0,
             readPerm: NetworkVariableReadPermission.Everyone,
@@ -43,6 +45,7 @@ namespace nickmaltbie.IntoTheRoots.Player
             {
                 SpriteRenderer sr = GetComponent<SpriteRenderer>();
                 sr.sprite = avatarDb.GetSpriteFromIndex(newValue);
+                selectedAvatar.Value = newValue;
             };
 
             if (IsOwner)
@@ -50,7 +53,20 @@ namespace nickmaltbie.IntoTheRoots.Player
                 selectedAvatar.Value = avatarDb.GetRandomAvatarIdx();
                 SpriteRenderer sr = GetComponent<SpriteRenderer>();
                 sr.sprite = avatarDb.GetSpriteFromIndex(selectedAvatar.Value);
+                loadedAvatar = selectedAvatar.Value;
             }
         }
+
+        public void Update()
+        {
+            if (loadedAvatar != selectedAvatar.Value)
+            {
+                SpriteRenderer sr = GetComponent<SpriteRenderer>();
+                sr.sprite = avatarDb.GetSpriteFromIndex(selectedAvatar.Value);
+                loadedAvatar = selectedAvatar.Value;
+            }
+
+        }
+
     }
 }
