@@ -102,7 +102,7 @@ namespace nickmaltbie.IntoTheRoots.Plants
                 {
                     return CanDrawRootToPlant(position, growZone, out RaycastHit2D _);
                 }
-                
+
                 return false;
             });
         }
