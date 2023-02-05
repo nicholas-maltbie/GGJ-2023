@@ -27,6 +27,7 @@ namespace nickmaltbie.IntoTheRoots.Plants
         public Sprite waterIcon;
         public Sprite sunIcon;
         public Sprite seedIcon;
+        public Sprite vpIcon;
 
         public Sprite GetIcon(Resource resource)
         {
@@ -38,6 +39,8 @@ namespace nickmaltbie.IntoTheRoots.Plants
                     return waterIcon;
                 case Resource.Seeds:
                     return seedIcon;
+                case Resource.VP:
+                    return vpIcon;
                 default:
                     return errorIcon;
             }

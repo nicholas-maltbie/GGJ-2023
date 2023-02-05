@@ -107,6 +107,10 @@ namespace nickmaltbie.IntoTheRoots.Player
             // Decrease player resources by requested amount
             SpendResourcesForPlant(plant);
 
+            // If vegetable, multiply points by # of connections.
+            int points = plant.plantType == PlantType.Vegetable ? plant.victoryPoints * connectedTrees.Length : plant.victoryPoints;
+            PlayerResources.AddVictoryPoints(OwnerClientId, points);
+
             foreach (Plant connected in connectedTrees)
             {
                 PlantUtils.SpawnRootBetweenPlants(plantDatabase.rootPrefab.gameObject, connected, plantGo.GetComponent<Plant>(), OwnerClientId);
