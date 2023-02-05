@@ -59,7 +59,14 @@ namespace nickmaltbie.IntoTheRoots.Player
                 }
 
                 Vector2 delta = move * moveSpeed * Time.deltaTime;
+                
+                Vector3 previousPosition = transform.position;
                 transform.position += new Vector3(delta.x, delta.y);
+
+                if (Physics2D.OverlapCircle(transform.position, 0.5f, LayerMask.GetMask("Wall")) != null)
+                {
+                    transform.position = previousPosition;
+                }
 
                 if (GetComponent<SpriteRenderer>() is SpriteRenderer sr && Mathf.Abs(delta.x) > 0.001f)
                 {
