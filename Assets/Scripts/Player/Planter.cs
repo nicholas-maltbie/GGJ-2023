@@ -49,23 +49,27 @@ namespace nickmaltbie.IntoTheRoots.Player
             ResourceValues cost = plant.cost;
             PlayerResources stored = GetComponent<PlayerResources>();
 
+            bool verdict = true;
+
             foreach (Resource resource in Enum.GetValues(typeof(Resource)))
             {
                 int required = cost.GetResourceValue(resource);
                 int current = stored.GetResourceCount(resource);
 
-                if (required <= 0)
-                {
-                    continue;
-                }
-
                 if (required > current)
                 {
-                    return false;
+                    // cannot plant
+                    PlantDetailsDisplay.Singleton.SetResourceHighlight(resource, true);
+                    verdict = false;
+                }
+                else
+                {
+                    // can plant
+                    PlantDetailsDisplay.Singleton.SetResourceHighlight(resource, false);
                 }
             }
 
-            return true;
+            return verdict;
         }
 
         public bool CanPlant(Plant target)

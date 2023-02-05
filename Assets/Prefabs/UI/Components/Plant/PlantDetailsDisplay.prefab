@@ -239,6 +239,9 @@ MonoBehaviour:
   sunGain: {fileID: 887667829116890802}
   waterCost: {fileID: 4352330826868376630}
   waterGain: {fileID: 3837541932733836638}
+  seedSprite: {fileID: 3136128545931094923}
+  sunSprite: {fileID: 8738227858125197870}
+  waterSprite: {fileID: 1041568708902079978}
 --- !u!1 &1441388897442341493
 GameObject:
   m_ObjectHideFlags: 0

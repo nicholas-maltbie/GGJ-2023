@@ -19,6 +19,7 @@
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace nickmaltbie.IntoTheRoots
 {
@@ -55,6 +56,11 @@ namespace nickmaltbie.IntoTheRoots
         /// </summary>
         public TextMeshProUGUI waterCost, waterGain;
 
+        /// <summary>
+        /// Images for resource types.
+        /// </summary>
+        public Image seedSprite, sunSprite, waterSprite;
+
         public void Awake()
         {
             Singleton = this;
@@ -74,6 +80,36 @@ namespace nickmaltbie.IntoTheRoots
 
                 Singleton.description.text = selectedPlant.plantDescription;
                 Singleton.plantName.text = selectedPlant.GetComponent<NetworkBehaviour>().name;
+            }
+        }
+
+        private void SetResoureAsNeeded(Image resourceImage, bool isNeeded)
+        {
+            if(isNeeded)
+            {
+                resourceImage.color = Color.yellow;
+            }
+            else
+            {
+                resourceImage.color = Color.white;
+            }
+        }
+
+        public void SetResourceHighlight( Plants.Resource resource, bool isNeeded )
+        {
+            switch( resource )
+            {
+                case Plants.Resource.Seeds:
+                    SetResoureAsNeeded(seedSprite, isNeeded);
+                    break;
+                case Plants.Resource.Sun:
+                    SetResoureAsNeeded(sunSprite, isNeeded);
+                    break;
+                case Plants.Resource.Water:
+                    SetResoureAsNeeded(seedSprite, isNeeded);
+                    break;
+                default:
+                    break;
             }
         }
     }
