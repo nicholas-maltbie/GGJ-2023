@@ -35,8 +35,8 @@ namespace nickmaltbie.IntoTheRoots.UI
 
             if (enabled)
             {
-                int winner = loop.Winner;
-                if ((long) winner == (long) NetworkManager.Singleton.LocalClientId)
+                long winner = loop.Winner;
+                if (winner == (long) NetworkManager.Singleton.LocalClientId)
                 {
                     winMessage.text = $"You Won!";   
                 }
