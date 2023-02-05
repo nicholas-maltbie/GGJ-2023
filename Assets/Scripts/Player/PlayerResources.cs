@@ -159,7 +159,7 @@ namespace nickmaltbie.IntoTheRoots.Player
             return null;
         }
 
-        public static void AddVictoryPoints( ulong clientId, int points )
+        public static void AddVictoryPoints(ulong clientId, int points)
         {
             GetResources(clientId).vp.Value += points;
         }

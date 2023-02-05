@@ -63,7 +63,7 @@ namespace nickmaltbie.IntoTheRoots.UI
             {
                 ResourceCounter counter = counters[resource];
 
-                if( resource != Resource.VP )
+                if (resource != Resource.VP)
                 {
                     counter.UpdateMax(resources.GetResourceMax(resource));
                     counter.UpdateCurrent(resources.GetResourceCount(resource));
