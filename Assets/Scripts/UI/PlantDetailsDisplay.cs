@@ -88,7 +88,7 @@ namespace nickmaltbie.IntoTheRoots
 
         private void SetResoureAsNeeded(Image resourceImage, bool isNeeded)
         {
-            if(isNeeded)
+            if (isNeeded)
             {
                 resourceImage.color = this.orange;
             }
@@ -98,9 +98,9 @@ namespace nickmaltbie.IntoTheRoots
             }
         }
 
-        public void SetResourceHighlight( Plants.Resource resource, bool isNeeded )
+        public void SetResourceHighlight(Plants.Resource resource, bool isNeeded)
         {
-            switch( resource )
+            switch (resource)
             {
                 case Plants.Resource.Seeds:
                     SetResoureAsNeeded(seedSprite, isNeeded);
