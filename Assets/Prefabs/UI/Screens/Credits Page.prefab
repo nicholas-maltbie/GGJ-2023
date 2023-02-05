@@ -647,19 +647,30 @@ MonoBehaviour:
 
     Credits:
 
-    Sam
-    Scherer
+    Anthony
+    Werner
+
+    Chloe Muncy
+
+    Edith Briar
+
+    Erin Beatty
+
+    James Hillman
+
+    Nathan
+    Brown
 
     Nick Maltbie
 
     Nik Damalas
 
-    Erin Beatty
+    Sam Scherer
 
-    Anthony Werner
 
-    Edith
-    Briar - Music & VFX'
+
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f46379fcb3b235945a343b4c04dfdee2, type: 2}
   m_sharedMaterial: {fileID: 6363876533848045350, guid: f46379fcb3b235945a343b4c04dfdee2, type: 2}
