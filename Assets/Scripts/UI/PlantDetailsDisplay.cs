@@ -90,7 +90,7 @@ namespace nickmaltbie.IntoTheRoots
         {
             if (isNeeded)
             {
-                resourceImage.color = this.orange;
+                resourceImage.color = orange;
             }
             else
             {
