@@ -12,7 +12,7 @@ TagManager:
   - Water
   - UI
   - Plant
-  - 
+  - Root
   - 
   - 
   - 
@@ -46,6 +46,9 @@ TagManager:
     locked: 0
   - name: RestrictedRange
     uniqueID: 463737433
+    locked: 0
+  - name: Root
+    uniqueID: 124772507
     locked: 0
   - name: Plant
     uniqueID: 3457993113

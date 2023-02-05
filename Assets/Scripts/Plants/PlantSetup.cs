@@ -28,10 +28,12 @@ namespace nickmaltbie.IntoTheRoots.Plants
 
         public void Start()
         {
-            foreach (Plant plant in plantDatabase.plants)
+            foreach (Plant plant in plantDatabase.EnumeratePlants())
             {
                 NetworkManager.Singleton.AddNetworkPrefab(plant.gameObject);
             }
+
+            NetworkManager.Singleton.AddNetworkPrefab(plantDatabase.rootPrefab.gameObject);
         }
     }
 }

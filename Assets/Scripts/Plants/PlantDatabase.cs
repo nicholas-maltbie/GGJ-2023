@@ -24,11 +24,18 @@ namespace nickmaltbie.IntoTheRoots.Plants
     [CreateAssetMenu(fileName = "PlantDatabase", menuName = "ScriptableObjects/PlantDatabaseScriptableObject", order = 1)]
     public class PlantDatabase : ScriptableObject
     {
+        public Root rootPrefab;
+
         public Plant[] plants;
 
         public int GetPlantIndex(Plant plant)
         {
             return GetPlantIndex(plant.name);
+        }
+
+        public Root GetRootPrefab()
+        {
+            return rootPrefab;
         }
 
         public IEnumerable<Plant> EnumeratePlants()
